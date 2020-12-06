@@ -24,11 +24,10 @@ const PayStatusFilter = styled(Box)`
 const List = () => {
   const [lists, setList] = useState([]);
   const [searchText, setSearchText] = useState('')
-  const [searchFilter, setSearchFilter] = useState([0])
+  const [searchFilter, setSearchFilter] = useState([])
   const [selectDate, setSelectDate] = useState('12_20');
   const [payFilter, setPayFilter] = useState('ทั้งหมด')
   const [orderFilter, setOrderFilter] = useState('ทั้งหมด')
-  const [payFilterList, setpayFilterList] = useState([])
   useEffect(() => {
     const sort = Mock.sort(function (a, b) {
       return b.id - a.id;
@@ -38,28 +37,39 @@ const List = () => {
 
   const onSearch = (value) => {
     setSearchText(value)
-    const nerList = lists.filter(item => item.รายการ.toLowerCase().includes(value.toLowerCase()) || item["@twitter"].toLowerCase().includes(value.toLowerCase()));
-    setSearchFilter(nerList)
+    if (payFilter === "ทั้งหมด") {
+      const nerList = lists.filter(item => item.รายการ.toLowerCase().includes(value.toLowerCase()) || item["@twitter"].toLowerCase().includes(value.toLowerCase()));
+      setSearchFilter(nerList)
+    } else {
+      const newData = lists.filter(item => item.สถานะ === payFilter)
+      const nerList = newData.filter(item => item.รายการ.toLowerCase().includes(value.toLowerCase()) || item["@twitter"].toLowerCase().includes(value.toLowerCase()));
+      setSearchFilter(nerList)
+    }
+
   }
   const onPayFilter = (value) => {
     setPayFilter(value)
-    if (value !== "ทั้งหมด") {
-      if (searchFilter.length > 0) {
-        const newList = searchFilter.filter(item => item.สถานะ === value)
-        setpayFilterList(newList)
+    if (value === "ทั้งหมด") {
+      if (searchText === '') {
+        // กด ทั้งหมดโดยที่ไม่ search
+        const newData = lists.filter(item => item.สถานะ === value)
+        setSearchFilter(newData)
       } else {
-        const newList = lists.filter(item => item.สถานะ === value)
-        setpayFilterList(newList)
+        // กดทั้งหมดโดย search
+        const nerList = lists.filter(item => item.รายการ.toLowerCase().includes(searchText.toLowerCase()) || item["@twitter"].toLowerCase().includes(searchText.toLowerCase()));
+        setSearchFilter(nerList)
       }
     } else {
-      if (searchFilter.length > 0) {
-        const newList = searchFilter.filter(item => item.สถานะ === value)
-        setpayFilterList(newList)
+      if (searchText === '') {
+        // กดโดยไม่ serch
+        const newData = lists.filter(item => item.สถานะ === value)
+        console.log(newData)
+        setSearchFilter(newData)
       } else {
-        const newList = lists.filter(item => item.รายการ.toLowerCase().includes(searchText.toLowerCase()) || item["@twitter"].toLowerCase().includes(searchText.toLowerCase()));
-        setpayFilterList(newList)
+        const nerList = lists.filter(item => item.รายการ.toLowerCase().includes(searchText.toLowerCase()) || item["@twitter"].toLowerCase().includes(searchText.toLowerCase()));
+        const newData = nerList.filter(item => item.สถานะ === value)
+        setSearchFilter(newData)
       }
-
     }
   }
   const onOrderFilter = (value) => {
@@ -67,24 +77,16 @@ const List = () => {
   }
   const getList = () => {
     if (searchText === '') {
-      if (payFilterList.length > 0) {
-        return payFilterList
-      } else {
+      if (payFilter === 'ทั้งหมด') {
         return lists
+      } else {
+        return searchFilter
       }
 
     } else {
       if (searchFilter.length > 0) {
-        if (payFilterList.length > 0) {
-          return payFilterList
-        } else {
-          if (payFilter === "ทั้งหมด") {
-            return searchFilter
-          } else {
-            return false
-          }
-
-        }
+        console.log(searchFilter)
+        return searchFilter
       } else {
         return false
       }
