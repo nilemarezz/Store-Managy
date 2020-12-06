@@ -1,5 +1,5 @@
 body {
-  background: #026c92 ;
+  background: #E0BBE4 ;
   overflow: hidden;
 }
 
@@ -19,6 +19,7 @@ nav {
   bottom: 0;
   width: 80px;
   background: #fff;
+  height : 100%;
 }
 
 button {

@@ -9,7 +9,6 @@ const getListByTitle = async (name) => {
   const sheet = doc.sheetsByTitle[name];
   const rows = await sheet.getRows();
   const data = []
-  console.log('......', rows[0]._sheet.headerValues)
   for (let i = 1; i < rows.length; i++) {
     data.push({
       "id": rows[i]._rowNumber,
@@ -38,7 +37,6 @@ const getSummaryValue = async (name) => {
   const sheet = doc.sheetsByTitle[name];
   const rows = await sheet.getRows();
   const value = rows[0]._sheet.headerValues
-  console.log(value)
   const data = {
     "sheet_name": name,
     "จำนวน": value[4],
@@ -55,7 +53,6 @@ const addList = async (body, name) => {
   await doc.useServiceAccountAuth(creds);
   await doc.loadInfo();
   const sheet = doc.sheetsByTitle[name];
-  console.log('add')
   const larryRow = await sheet.addRow(['asdasdasd', 'asdasd']);
   return true
 }

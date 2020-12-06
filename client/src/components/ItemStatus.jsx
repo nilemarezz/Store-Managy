@@ -38,6 +38,3 @@ export {
   TrackingStatus,
   PayStatus
 }
-// export const TrackingStatus = ({ status }) => {
-//   return <Text size="small">{status}</Text>
-// }
