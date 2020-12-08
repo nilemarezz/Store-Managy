@@ -12,7 +12,7 @@ import { TrackingStatus, PayStatus } from '../components/ItemStatus.jsx'
 import { Loader } from '../components/Loader'
 import styled from 'styled-components'
 import Select from 'react-select'
-import getList from '../services/getlist'
+import getListService from '../services/getlist'
 const PayStatusFilter = styled(Box)`
   border-radius: 6px; 
   ${props => props.name === props.payFilter ?
@@ -30,7 +30,7 @@ const List = () => {
   const [loading, setLoading] = useState(false)
   useEffect(async () => {
     setLoading(true)
-    const data = await getList()
+    const data = await getListService()
     console.log(data)
     const sort = data.sort(function (a, b) {
       return b.id - a.id;

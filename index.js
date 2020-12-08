@@ -3,7 +3,9 @@ const app = express()
 const config = require('./config.json')
 const { getListByTitle, getSummaryValue, addList } = require('./services/adminsheet')
 var bodyParser = require('body-parser')
+var cors = require('cors');
 const port = process.env.PORT || 5000
+app.use(cors());
 app.use(bodyParser.json())
 
 app.get("/list/:title", async (req, res) => {
