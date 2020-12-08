@@ -1,7 +1,7 @@
 const { GoogleSpreadsheet } = require('google-spreadsheet');
 const creds = require('../config.json');
 // spreadsheet key is the long id in the sheets URL
-const doc = new GoogleSpreadsheet('1r1jCInlqAQqOrJ1sPUmslu1MT4KuQHB06Y1X93eB2a4');
+const doc = new GoogleSpreadsheet('1_lL70ZFhUBwXw7h-otL9NMVfxqHWFeJRtTaU1Vuejg8');
 
 const getListByTitle = async (name) => {
   await doc.useServiceAccountAuth(creds);
