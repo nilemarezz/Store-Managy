@@ -7,12 +7,16 @@ import {
 import ListComponent from './containers/List'
 import Add from './containers/Add'
 import Analzye from './containers/Analyze'
-import { Grommet, Box } from 'grommet';
+import { Grommet } from 'grommet';
 import "./styles.css";
 import Footer from './components/Footer'
+import Header from './components/Header'
 const theme = {
   global: {
     themeMode: 'dark',
+    colors: {
+      focus: '#957DAD' // added focus color
+    },
     font: {
       family: 'Roboto',
       size: '14px',
@@ -24,6 +28,7 @@ const App = () => {
   return (
     <Grommet theme={theme}>
       <Router>
+        <Header />
         {/* <NavBar /> */}
         <Switch>
           <Route path="/add" strict>
