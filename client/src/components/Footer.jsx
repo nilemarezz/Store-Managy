@@ -4,7 +4,7 @@ import styled from 'styled-components'
 
 const FooterItem = styled.div`
   flex : 1;
-  height: 60px ;
+  height: 70px ;
   display: flex  ;
   justify-content: center; 
   padding-top : 15px;
@@ -13,7 +13,7 @@ const FooterItem = styled.div`
 const Footer = (props) => {
   return (
     <div style={{
-      backgroundColor: '#15202b', height: 60, width: '100%', position: 'fixed', bottom: 0, left: 0, display: 'flex', flexDirection: 'row', justifyContent: 'space-around', borderTop: '1px solid lightgrey'
+      backgroundColor: '#15202b', height: 70, width: '100%', position: 'fixed', bottom: 0, left: 0, display: 'flex', flexDirection: 'row', justifyContent: 'space-around', borderTop: '1px solid lightgrey'
     }}>
       <FooterItem path="/" location={props.location.pathname} onClick={() => props.history.push("/")}  >
         <List color="white" />

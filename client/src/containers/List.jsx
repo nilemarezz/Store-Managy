@@ -245,7 +245,7 @@ const List = () => {
         </Box>
       </Box>
       {loading ? <center style={{ marginTop: 100 }} ><Loader /></center> :
-        <div div style={{ overflow: "scroll", height: 'calc(100vh - 250px)', marginTop: 10 }}>
+        <div div style={{ overflow: "scroll", height: 'calc(100vh - 260px)', marginTop: 10 }}>
           {
             getList() ? getList().map(item => {
               return <CardComponent item={item} key={item.id} />
