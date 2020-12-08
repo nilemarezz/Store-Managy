@@ -15,7 +15,7 @@ const theme = {
   global: {
     themeMode: 'dark',
     colors: {
-      focus: '#957DAD' // added focus color
+      focus: '#1f2342' // added focus color
     },
     font: {
       family: 'Roboto',

@@ -4,16 +4,16 @@ import styled from 'styled-components'
 
 const FooterItem = styled.div`
   flex : 1;
-  height: 50px ;
+  height: 60px ;
   display: flex  ;
   justify-content: center; 
-  align-items: center; 
-  ${props => props.path === props.location ? 'background-color : #957DAD;' : 'background-color : none;'}
+  padding-top : 15px;
+  ${props => props.path === props.location ? 'background-color : #394551;' : 'background-color : none;'}
 `
 const Footer = (props) => {
   return (
     <div style={{
-      backgroundColor: '#D291BC', height: 50, width: '100%', position: 'fixed', bottom: 0, left: 0, display: 'flex', flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center'
+      backgroundColor: '#15202b', height: 60, width: '100%', position: 'fixed', bottom: 0, left: 0, display: 'flex', flexDirection: 'row', justifyContent: 'space-around', borderTop: '1px solid lightgrey'
     }}>
       <FooterItem path="/" location={props.location.pathname} onClick={() => props.history.push("/")}  >
         <List color="white" />

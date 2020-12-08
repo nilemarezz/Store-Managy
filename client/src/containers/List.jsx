@@ -245,7 +245,7 @@ const List = () => {
         </Box>
       </Box>
       {loading ? <center style={{ marginTop: 100 }} ><Loader /></center> :
-        <div div style={{ overflow: "scroll", height: 'calc(100vh - 220px)', marginTop: 10 }}>
+        <div div style={{ overflow: "scroll", height: 'calc(100vh - 250px)', marginTop: 10 }}>
           {
             getList() ? getList().map(item => {
               return <CardComponent item={item} key={item.id} />
@@ -261,8 +261,8 @@ const List = () => {
 const CardComponent = ({ item }) => {
   return (
     <Card background="light-1" margin={{ horizontal: "10px", vertical: "large" }} animation={['fadeIn']}>
-      <CardBody pad={{ horizontal: "small", vertical: "medium" }}><Text truncate={true}>{item["รายการ"]}</Text></CardBody>
-      <CardFooter pad={{ horizontal: "medium", vertical: "10px" }} background="light-2">
+      <CardBody pad={{ horizontal: "small", vertical: "medium" }} background="#35424d"><Text truncate={true}>{item["รายการ"]}</Text></CardBody>
+      <CardFooter pad={{ horizontal: "medium", vertical: "10px" }} background="#394551">
         <Text size="small">{item["@twitter"]}</Text>
         <Box gap="small" direction="row">
           <TrackingStatus status={item["Tracking no."]} />
