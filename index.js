@@ -3,7 +3,7 @@ const app = express()
 const config = require('./config.json')
 const { getListByTitle, getSummaryValue, addList } = require('./services/adminsheet')
 var bodyParser = require('body-parser')
-
+const port = process.env.port || 5000
 app.use(bodyParser.json())
 
 app.get("/list/:title", async (req, res) => {
@@ -36,6 +36,6 @@ app.post("/add", async (req, res) => {
   }
 })
 
-app.listen(config.PORT, () => {
-  console.log('Server start at port' + config.PORT)
+app.listen(port, () => {
+  console.log('Server start at port' + port)
 })
