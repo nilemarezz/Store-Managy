@@ -12,6 +12,7 @@ import { TrackingStatus, PayStatus } from '../components/ItemStatus.jsx'
 import { Loader } from '../components/Loader'
 import styled from 'styled-components'
 import Select from 'react-select'
+import getList from '../services/getlist'
 const PayStatusFilter = styled(Box)`
   border-radius: 6px; 
   ${props => props.name === props.payFilter ?
@@ -27,9 +28,11 @@ const List = () => {
   const [orderFilter, setOrderFilter] = useState('ทั้งหมด')
   const [placeholderDate, setPlaceHolderData] = useState('DEC 2020')
   const [loading, setLoading] = useState(false)
-  useEffect(() => {
+  useEffect(async () => {
     setLoading(true)
-    const sort = Mock.sort(function (a, b) {
+    const data = await getList()
+    console.log(data)
+    const sort = data.sort(function (a, b) {
       return b.id - a.id;
     });
     const monthNames = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN",
