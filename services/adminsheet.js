@@ -1,14 +1,16 @@
 const { GoogleSpreadsheet } = require('google-spreadsheet');
 const creds = require('../config.json');
 // spreadsheet key is the long id in the sheets URL
-const doc = new GoogleSpreadsheet('1_lL70ZFhUBwXw7h-otL9NMVfxqHWFeJRtTaU1Vuejg8');
+// local 1DLP-KXGv0_ykWUM07Gxl1iqQ2M3WCAs6SVn8anpOQxg
+// prod 1_lL70ZFhUBwXw7h-otL9NMVfxqHWFeJRtTaU1Vuejg8
+// correct-format 1-BH24rSD7C9WJ4tWu-7feO9PEL9k_mpKW7pqlcQtDoU
+const doc = new GoogleSpreadsheet('1-BH24rSD7C9WJ4tWu-7feO9PEL9k_mpKW7pqlcQtDoU');
 
 const getListByTitle = async (name) => {
   await doc.useServiceAccountAuth(creds);
   await doc.loadInfo();
   const sheet = doc.sheetsByTitle[name];
   const rows = await sheet.getRows();
-  console.log(rows[2])
   const data = []
   for (let i = 1; i < rows.length; i++) {
     data.push({
@@ -58,4 +60,12 @@ const addList = async (body, name) => {
   return true
 }
 
-module.exports = { getListByTitle, getSummaryValue, addList }
+const editList = async (data) => {
+  await doc.useServiceAccountAuth(creds);
+  await doc.loadInfo();
+  const sheet = doc.sheetsByTitle["12_20"];
+  const rows = await sheet.getRows();
+  console.log(rows[3]["@Twitter"])
+}
+
+module.exports = { getListByTitle, getSummaryValue, addList, editList }

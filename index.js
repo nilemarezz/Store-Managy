@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express()
 const config = require('./config.json')
-const { getListByTitle, getSummaryValue, addList } = require('./services/adminsheet')
+const { getListByTitle, getSummaryValue, addList, editList } = require('./services/adminsheet')
 var bodyParser = require('body-parser')
 var cors = require('cors');
 const port = process.env.PORT || 5000
@@ -36,6 +36,10 @@ app.post("/add", async (req, res) => {
     res.json({ result: false })
     console.log(err)
   }
+})
+
+app.put("/edit", async (req, res) => {
+  await editList(req.body)
 })
 
 app.listen(port, () => {
