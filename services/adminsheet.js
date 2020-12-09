@@ -8,6 +8,7 @@ const getListByTitle = async (name) => {
   await doc.loadInfo();
   const sheet = doc.sheetsByTitle[name];
   const rows = await sheet.getRows();
+  console.log(rows[2])
   const data = []
   for (let i = 1; i < rows.length; i++) {
     data.push({
@@ -20,12 +21,12 @@ const getListByTitle = async (name) => {
       "ยอดที่โอน": rows[i]._rawData[5],
       "การจัดส่ง": rows[i]._rawData[6],
       "ที่อยู่": rows[i]._rawData[7],
-      "note": rows[i]._rawData[8],
-      "ต้นทุน": rows[i]._rawData[9],
-      "ราคาขาย": rows[i]._rawData[10],
-      "ค่าส่งที่เก็บ": rows[i]._rawData[11],
-      "ค่าส่งจริง": rows[i]._rawData[12],
-      "กำไร": rows[i]._rawData[13],
+      "ต้นทุน": rows[i]._rawData[8],
+      "ราคาขาย": rows[i]._rawData[9],
+      "ค่าส่งที่เก็บ": rows[i]._rawData[10],
+      "ค่าส่งจริง": rows[i]._rawData[11],
+      "กำไร": rows[i]._rawData[12],
+      "Note": rows[i]._rawData[13],
     })
   }
   return data

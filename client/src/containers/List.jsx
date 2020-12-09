@@ -16,6 +16,7 @@ import getListService from '../services/getlist'
 import Header from '../components/Header'
 import { getDateNow, getFullyDateNow } from '../utilities/getDate'
 import { selectData, color } from '../masterdata'
+import ModalDetail from '../components/ModalDetail'
 const PayStatusFilter = styled(Box)`
   border-radius: 6px; 
   ${props => props.name === props.payFilter ?
@@ -32,6 +33,8 @@ const List = () => {
   const [orderFilter, setOrderFilter] = useState('ทั้งหมด')
   const [placeholderDate, setPlaceHolderData] = useState('DEC 2020')
   const [loading, setLoading] = useState(false)
+  const [showModal, setShowModal] = useState(false)
+  const [selectList, setSelectList] = useState(null)
   const fetchList = async (date) => {
     setLoading(true)
     const data = await getListService(date)
@@ -202,8 +205,18 @@ const List = () => {
     fetchList(getDateNow())
     selectInputRef.current.select.clearValue();
   }
+  const onSelectModal = (data) => {
+    setShowModal(true)
+    setSelectList(data)
+  }
+  const onCloseModal = () => {
+    console.log('asdasd')
+    setShowModal(false)
+    setSelectList(null)
+  }
   return (
     <>
+      <ModalDetail showModal={showModal} onCloseModal={onCloseModal} selectList={selectList} />
       <Header onRefresh={() => onRefresh()} />
       <div style={{ display: 'flex', flexDirection: 'row', padding: 10 }}>
         <div style={{ width: 300 }}>
@@ -242,7 +255,7 @@ const List = () => {
         <div div style={{ overflow: "scroll", height: 'calc(100vh - 260px)', marginTop: 10 }}>
           {
             getList() ? getList().map(item => {
-              return <CardComponent item={item} key={item.id} />
+              return <CardComponent item={item} key={item.id} onSelectModal={onSelectModal} />
             }) : <center style={{ marginTop: 100 }} ><Text size="large" color="white">Item Not Found</Text></center>
           }
         </div >
@@ -252,9 +265,9 @@ const List = () => {
 }
 
 
-const CardComponent = ({ item }) => {
+const CardComponent = ({ item, onSelectModal }) => {
   return (
-    <Card background="light-1" margin={{ horizontal: "10px", vertical: "large" }} animation={['fadeIn']}>
+    <Card background="light-1" margin={{ horizontal: "10px", vertical: "large" }} animation={['fadeIn']} onClick={() => onSelectModal(item)}>
       <CardBody pad={{ horizontal: "small", vertical: "medium" }} background="#35424d"><Text truncate={true}>{item["รายการ"]}</Text></CardBody>
       <CardFooter pad={{ horizontal: "medium", vertical: "10px" }} background="#394551">
         <Text size="small">{item["@twitter"]}</Text>

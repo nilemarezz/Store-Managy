@@ -17,3 +17,16 @@ export const color = {
   fontColor: 'white',
   fontActivate: "black"
 }
+
+export const payStatus = {
+  "ทั้งหมด": {
+    value: "ทั้งหมด",
+    label: "ทั้งหมด",
+    color: ""
+  },
+  "มัดจำ": {
+    value: "มัดจำ",
+    label: "มัดจำ",
+    color: ""
+  },
+}

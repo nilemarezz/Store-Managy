@@ -27,13 +27,27 @@ const getTrackingColor = (status) => {
     return "#00C781"
   }
 }
+
+const getLogisColor = (status) => {
+  if (status === "ลทบ.") {
+    return "#FFAA15"
+  } else if (status === "นัดรับ") {
+    return "#7D4CDB"
+  } else {
+    return "#FD6FFF"
+  }
+}
 const TrackingStatus = ({ status }) => {
   return <Box size="small" style={{ backgroundColor: getTrackingColor(status), color: 'white', borderRadius: 6 }} pad={{ horizontal: "small", vertical: 'xxsmall' }}>{status || "-"}</Box>
 }
 const PayStatus = ({ status }) => {
   return <Box size="small" style={{ backgroundColor: getPayColor(status), color: 'white', borderRadius: 6 }} pad={{ horizontal: "small", vertical: 'xxsmall' }}>{status || "-"}</Box>
 }
+const LogisStatus = ({ status }) => {
+  return <Box size="small" style={{ backgroundColor: getLogisColor(status), color: 'white', borderRadius: 6 }} pad={{ horizontal: "small", vertical: 'xxsmall' }}>{status || "-"}</Box>
+}
 export {
   TrackingStatus,
-  PayStatus
+  PayStatus,
+  LogisStatus
 }
