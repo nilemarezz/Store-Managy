@@ -3,8 +3,8 @@
   "name": "Store-Managy",
   "icons": [
     {
-      "src": "/images/logo.png",
-      "type": "image/png",
+      "src": "/images/logo.jpg",
+      "type": "image/jpg",
       "sizes": "1024x1024"
     }
   ],

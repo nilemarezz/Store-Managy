@@ -28,7 +28,7 @@ const App = () => {
   return (
     <Grommet theme={theme}>
       <Router>
-        <Header />
+        {/* <Header /> */}
         {/* <NavBar /> */}
         <Switch>
           <Route path="/add" strict>

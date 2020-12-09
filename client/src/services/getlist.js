@@ -1,8 +1,12 @@
-const getList = async () => {
-  const res = await fetch('https://nodemanagy.herokuapp.com/list/12_20');
+const getList = async (value) => {
+  const res = await fetch(`https://nodemanagy.herokuapp.com/list/${value}`);
   const data = await res.json()
-  console.log(data)
-  return data.data
+  if (data.result === true) {
+    return data.data
+  } else {
+    return []
+  }
+
 }
 
 export default getList

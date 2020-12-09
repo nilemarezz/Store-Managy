@@ -6,21 +6,25 @@ import {
   Text,
   TextInput
 } from 'grommet';
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import Mock from '../mock.json'
 import { TrackingStatus, PayStatus } from '../components/ItemStatus.jsx'
 import { Loader } from '../components/Loader'
 import styled from 'styled-components'
 import Select from 'react-select'
 import getListService from '../services/getlist'
+import Header from '../components/Header'
+import { getDateNow, getFullyDateNow } from '../utilities/getDate'
+import { selectData, color } from '../masterdata'
 const PayStatusFilter = styled(Box)`
   border-radius: 6px; 
   ${props => props.name === props.payFilter ?
-    `background-color : white; color : black; `
+    `background-color : ${color.activate}; color : ${color.fontActivate}; `
     :
-    'border : 1px solid white; color : white;'}
+    `border : 1px solid ${color.activate}; color :${color.fontColor};`}
   `
 const List = () => {
+  const selectInputRef = useRef();
   const [lists, setList] = useState([]);
   const [searchText, setSearchText] = useState('')
   const [searchFilter, setSearchFilter] = useState([])
@@ -28,24 +32,23 @@ const List = () => {
   const [orderFilter, setOrderFilter] = useState('ทั้งหมด')
   const [placeholderDate, setPlaceHolderData] = useState('DEC 2020')
   const [loading, setLoading] = useState(false)
-  useEffect(async () => {
+  const fetchList = async (date) => {
     setLoading(true)
-    const data = await getListService()
-    console.log(data)
+    const data = await getListService(date)
     const sort = data.sort(function (a, b) {
       return b.id - a.id;
-    });
-    const monthNames = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN",
-      "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"
-    ];
-    const date = new Date()
+    })
     setList(sort)
-    setPlaceHolderData(`${monthNames[date.getMonth()]} ${date.getFullYear()}`)
     setLoading(false)
+  }
+  useEffect(async () => {
+    setPlaceHolderData(getFullyDateNow())
+    await fetchList(getDateNow())
   }, [])
 
-  const onSelectSheet = (value) => {
-    // fetch
+
+  const onSelectSheet = async (value) => {
+    await fetchList(value)
     setSearchText('')
     setSearchFilter([])
     setPayFilter('ทั้งหมด')
@@ -106,7 +109,6 @@ const List = () => {
         } else {
           const filter = lists.filter(item => item["Tracking no."] === orderFilter)
           const newData = filter.filter(item => item["สถานะ"] === value)
-          console.log(newData)
           setSearchFilter(newData)
         }
 
@@ -132,14 +134,12 @@ const List = () => {
           setSearchFilter(lists)
         } else {
           const newData = lists.filter(item => item["สถานะ"] === payFilter)
-          console.log(newData)
           setSearchFilter(newData)
         }
         // กด ทั้งหมดโดยที่ไม่ search
       } else {
         const nerList = lists.filter(item => item.รายการ.toLowerCase().includes(searchText.toLowerCase()) || item["@twitter"].toLowerCase().includes(searchText.toLowerCase()));
         if (payFilter !== 'ทั้งหมด') {
-          console.log('22')
           const newData = nerList.filter(item => item["สถานะ"] === payFilter)
           setSearchFilter(newData)
         } else {
@@ -151,7 +151,6 @@ const List = () => {
         // กดโดยไม่ serch
         if (payFilter === 'ทั้งหมด') {
           const newData = lists.filter(item => item["Tracking no."] === value)
-          console.log(newData)
           setSearchFilter(newData)
         } else {
           const newData = lists.filter(item => item["สถานะ"] === payFilter)
@@ -176,14 +175,12 @@ const List = () => {
   const getList = () => {
     if (searchText === '') {
       if (payFilter === 'ทั้งหมด' && orderFilter === 'ทั้งหมด') {
-        console.log('asd')
         if (lists.length > 0) {
           return lists
         } else {
           return false
         }
       } else {
-        console.log(searchFilter)
         if (searchFilter.length === 0) {
           return false
         } else {
@@ -194,16 +191,20 @@ const List = () => {
 
     } else {
       if (searchFilter.length > 0) {
-        console.log('asdads')
         return searchFilter
       } else {
-        console.log('1234')
         return false
       }
     }
   }
+  const onRefresh = () => {
+    setPlaceHolderData(getFullyDateNow())
+    fetchList(getDateNow())
+    selectInputRef.current.select.clearValue();
+  }
   return (
     <>
+      <Header onRefresh={() => onRefresh()} />
       <div style={{ display: 'flex', flexDirection: 'row', padding: 10 }}>
         <div style={{ width: 300 }}>
           <TextInput
@@ -215,21 +216,11 @@ const List = () => {
         </div>
         <div style={{ width: 200, paddingLeft: 10 }}>
           <Select
+            ref={selectInputRef}
             style={{ width: 100 }}
             placeholder={placeholderDate}
-            onChange={(e) => onSelectSheet(e.value)}
-            options={[
-              { value: '10_20', label: 'OCT 2020' },
-              { value: '11_20', label: 'NOV 2020' },
-              { value: '12_20', label: 'DEC 2020' },
-              { value: '01_21', label: 'JAN 2021' },
-              { value: '02_21', label: 'FEB 2021' },
-              { value: '03_21', label: 'MAR 2021' },
-              { value: '04_21', label: 'APR 2021' },
-              { value: '05_21', label: 'MAY 2021' },
-              { value: '06_21', label: 'JUN 2021' },
-              { value: '07_21', label: 'JUL 2021' },
-            ]} />
+            onChange={(e) => onSelectSheet(e ? e.value : getDateNow())}
+            options={selectData} />
         </div>
       </div>
       <Box direction="column" >

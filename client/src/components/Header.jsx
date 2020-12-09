@@ -5,7 +5,7 @@ const Header = (props) => {
   return (
     <Box pad={"medium"} style={{ height: 50 }} justify="between" direction="row">
       <Twitter color="#1da1f3" onClick={() => window.location.href = "https://twitter.com/"} />
-      {props.location.pathname === "/add" ? null : <Refresh color="white" onClick={() => window.location.reload()} style={{}} />}
+      {props.location.pathname === "/add" ? null : <Refresh color="white" onClick={() => props.onRefresh()} />}
     </Box>
   )
 }
