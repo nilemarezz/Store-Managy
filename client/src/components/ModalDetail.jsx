@@ -47,7 +47,7 @@ const Modal = ({ showModal, onCloseModal, selectList }) => {
                   </Box>
                 </Box>
                 <Box pad={{ vertical: 'small' }} direction="row">
-                  <Text color="white" size="medium" color="lightgray">{`ส่งพัศดุ : `} </Text>
+                  <Text color="white" size="medium" color="lightgray">{`ส่งพัสดุ : `} </Text>
                   <Box pad={{ horizontal: 'small' }} >
                     <LogisStatus status={selectList["การจัดส่ง"]} />
                   </Box>
