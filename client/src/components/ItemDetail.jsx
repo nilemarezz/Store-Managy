@@ -1,62 +1,54 @@
-import { motion } from 'framer-motion'
+
 import { Box, Text } from 'grommet'
-import { Close } from 'grommet-icons'
 import { TrackingStatus, PayStatus, LogisStatus } from '../components/ItemStatus.jsx'
-const modal = {
-  hidden: { y: "-100vh", opacity: 0, transition: { delay: 0.1 } },
-  visible: {
-    y: "40px",
-    opacity: 1,
-    transition: { delay: 0.3 }
-  },
-}
+import { variable, color } from '../masterdata'
 const ItemDetail = ({ selectList }) => {
   return (
-    <Box pad="medium">
-      <Text color="white" size="large"><center><strong>{selectList["รายการ"]}</strong></center></Text>
-      <Box pad={{ vertical: 'small' }}>
-        <Text color="white" size="medium" color="lightgray">{selectList["@twitter"]}</Text>
+    <Box pad={{ horizontal: "medium" }} animation={['fadeIn']}>
+      <Box pad={{ vertical: 'small' }} direction="row">
+        <Text size="medium" color={color.subfont}>{`${variable.paymentStatus.label} : `} </Text>
+        <Box pad={{ horizontal: 'small' }} >
+          <PayStatus status={selectList[variable.paymentStatus.value]} />
+        </Box>
       </Box>
       <Box pad={{ vertical: 'small' }} direction="row">
-        <Text color="white" size="medium" color="lightgray">{`สถานะสินค้า : `} </Text>
+        <Text size="medium" color={color.subfont}>{`${variable.productStatus.label} : `} </Text>
         <Box pad={{ horizontal: 'small' }} >
-          <TrackingStatus status={selectList["Tracking no."]} />
+          <TrackingStatus status={selectList[variable.productStatus.value]} />
         </Box>
 
       </Box>
       <Box pad={{ vertical: 'small' }} direction="row">
-        <Text color="white" size="medium" color="lightgray">{`สถานะการจ่าย : `} </Text>
+        <Text size="medium" color={color.subfont}>{`${variable.logist.label} : `} </Text>
         <Box pad={{ horizontal: 'small' }} >
-          <PayStatus status={selectList["สถานะ"]} />
-        </Box>
-      </Box>
-      <Box pad={{ vertical: 'small' }} direction="row">
-        <Text color="white" size="medium" color="lightgray">{`ส่งพัสดุ : `} </Text>
-        <Box pad={{ horizontal: 'small' }} >
-          <LogisStatus status={selectList["การจัดส่ง"]} />
+          <LogisStatus status={selectList[variable.logist.value]} />
         </Box>
       </Box>
       <Box pad={{ vertical: 'small' }} direction="row" justify="between" gap="medium">
-        <Text color="white" size="medium" color="lightgray">{`จำนวน : ${selectList["จำนวน"]}`} </Text>
-        <Text color="white" size="medium" color="lightgray" style={{ border: '1px solid white', padding: '4px', borderRadius: '5px' }}>{`ยอดที่โอน : ${selectList["ยอดที่โอน"]} ฿`} </Text>
+        <Text size="medium" color={color.subfont}>{`${variable.amount.label}  : ${selectList[variable.amount.value]}`} </Text>
+        <Text size="medium" color={color.subfont} style={{ border: '1px solid white', padding: '4px', borderRadius: '5px' }}>{`${variable.price.label}   : ${selectList[variable.price.value]} ฿`} </Text>
       </Box>
       <Box pad={{ vertical: 'small' }} direction="row">
         <Box style={{ width: '130px' }}>
-          <Text color="white" size="small" color="lightgray">{`ที่อยู่ : `} </Text>
+          <Text size="small" color={color.subfont}>{`${variable.address.label}  : `} </Text>
         </Box>
-        <Text color="white" size="small" color="lightgray">{` ${selectList["ที่อยู่"]}`} </Text>
+        <Text size="small" color={color.subfont}>{` ${selectList[variable.address.value]}`} </Text>
       </Box>
       <Box pad={{ vertical: 'small' }} direction="row" gap="small">
-        <Text color="white" size="small" color="lightgray">{`Note : `} </Text>
-        <Text color="white" size="small" color="lightgray">{` ${selectList["Note"]}`} </Text>
+        <Text size="small" color={color.subfont}>{`${variable.note.label}  : `} </Text>
+        <Text size="small" color={color.subfont}>{` ${selectList[variable.note.value]}`} </Text>
+      </Box>
+      <Box pad={{ vertical: 'small' }} direction="row" gap="small">
+        <Text size="small" color={color.subfont}>{`${variable.trackingNo.label} : `} </Text>
+        <Text size="small" color={color.subfont}>{` ${selectList[variable.trackingNo.value]}`} </Text>
       </Box>
       <hr style={{ width: '80%' }}></hr>
       <Box pad={{ vertical: 'small' }} direction="row" gap="medium" justify="center">
-        <Text color="white" size="small" color="lightgray">{`ต้นทุน : ${selectList["ต้นทุน"]}`} </Text>
-        <Text color="white" size="small" color="lightgray">{`ราคาขาย : ${selectList["ราคาขาย"]}`} </Text>
+        <Text size="small" color={color.subfont}>{`${variable.cost.label}  : ${selectList[variable.cost.value]}`} </Text>
+        <Text size="small" color={color.subfont}>{`${variable.salePrice.label}  : ${selectList[variable.salePrice.value]}`} </Text>
       </Box>
-      <Box pad={{ vertical: 'small' }} direction="row" gap="medium" justify="center">
-        <Text color="white" size="small" color="lightgray">{`ค่าส่งที่เก็บ : ${selectList["ค่าส่งที่เก็บ"]}`} </Text>
+      <Box pad={{ vertical: 'xxsmall' }} direction="row" gap="medium" justify="center">
+        <Text size="small" color={color.subfont}>{`${variable.deliveryCostPay.label}  : ${selectList[variable.deliveryCostPay.value]}`} </Text>
       </Box>
     </Box>
   )

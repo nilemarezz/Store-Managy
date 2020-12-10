@@ -15,7 +15,7 @@ import Select from 'react-select'
 import getListService from '../services/getlist'
 import Header from '../components/Header'
 import { getDateNow, getFullyDateNow } from '../utilities/getDate'
-import { selectData, color } from '../masterdata'
+import { selectData, color, payStatus, trackingStatus, serchInput, Notfound, variable } from '../masterdata'
 import ModalDetail from '../components/ModalDetail'
 const PayStatusFilter = styled(Box)`
   border-radius: 6px; 
@@ -60,19 +60,19 @@ const List = () => {
 
   const onSearch = (value) => {
     setSearchText(value)
-    const nerList = lists.filter(item => item.รายการ.toLowerCase().includes(value.toLowerCase()) || item["@twitter"].toLowerCase().includes(value.toLowerCase()));
+    const nerList = lists.filter(item => item.รายการ.toLowerCase().includes(value.toLowerCase()) || item[variable.twitter.value].toLowerCase().includes(value.toLowerCase()));
     if (payFilter === "ทั้งหมด" && orderFilter === "ทั้งหมด") {
       setSearchFilter(nerList)
     } else {
       if (payFilter === "ทั้งหมด" && orderFilter !== "ทั้งหมด") {
-        const newData = nerList.filter(item => item["Tracking no."] === orderFilter)
+        const newData = nerList.filter(item => item[variable.productStatus.value].includes(orderFilter))
         setSearchFilter(newData)
       } else if (payFilter !== "ทั้งหมด" && orderFilter === "ทั้งหมด") {
-        const newData = nerList.filter(item => item["สถานะ"] === payFilter)
+        const newData = nerList.filter(item => item[variable.paymentStatus.value] === payFilter)
         setSearchFilter(newData)
       } else {
-        const newData = nerList.filter(item => item["สถานะ"] === payFilter)
-        const filter = newData.filter(item => item["Tracking no."] === orderFilter)
+        const newData = nerList.filter(item => item[variable.paymentStatus.value] === payFilter)
+        const filter = newData.filter(item => item[variable.productStatus.value].includes(orderFilter))
         setSearchFilter(filter)
       }
 
@@ -86,16 +86,16 @@ const List = () => {
         if (orderFilter === 'ทั้งหมด') {
           setSearchFilter([])
         } else {
-          const newData = lists.filter(item => item["Tracking no."] === orderFilter)
+          const newData = lists.filter(item => item[variable.productStatus.value].includes(orderFilter))
           setSearchFilter(newData)
         }
         // กด ทั้งหมดโดยที่ไม่ search
 
       } else {
         // กดทั้งหมดโดย search
-        const nerList = lists.filter(item => item.รายการ.toLowerCase().includes(searchText.toLowerCase()) || item["@twitter"].toLowerCase().includes(searchText.toLowerCase()));
+        const nerList = lists.filter(item => item.รายการ.toLowerCase().includes(searchText.toLowerCase()) || item[variable.twitter.value].toLowerCase().includes(searchText.toLowerCase()));
         if (orderFilter !== 'ทั้งหมด') {
-          const newData = nerList.filter(item => item["Tracking no."] === orderFilter)
+          const newData = nerList.filter(item => item[variable.productStatus.value].includes(orderFilter))
           setSearchFilter(newData)
         } else {
           setSearchFilter(nerList)
@@ -107,22 +107,22 @@ const List = () => {
       if (searchText === '') {
         // กดโดยไม่ serch
         if (orderFilter === 'ทั้งหมด') {
-          const newData = lists.filter(item => item.สถานะ === value)
+          const newData = lists.filter(item => item[variable.paymentStatus.value] === value)
           setSearchFilter(newData)
         } else {
-          const filter = lists.filter(item => item["Tracking no."] === orderFilter)
-          const newData = filter.filter(item => item["สถานะ"] === value)
+          const filter = lists.filter(item => item[variable.productStatus.value].includes(orderFilter))
+          const newData = filter.filter(item => item[variable.paymentStatus.value] === value)
           setSearchFilter(newData)
         }
 
       } else {
-        const nerList = lists.filter(item => item.รายการ.toLowerCase().includes(searchText.toLowerCase()) || item["@twitter"].toLowerCase().includes(searchText.toLowerCase()));
+        const nerList = lists.filter(item => item.รายการ.toLowerCase().includes(searchText.toLowerCase()) || item[variable.twitter.value].toLowerCase().includes(searchText.toLowerCase()));
         if (orderFilter === "ทั้งหมด") {
-          const newData = nerList.filter(item => item.สถานะ === value)
+          const newData = nerList.filter(item => item[variable.paymentStatus.value] === value)
           setSearchFilter(newData)
         } else {
-          const newData = nerList.filter(item => item["Tracking no."] === orderFilter)
-          const filter = newData.filter(item => item["สถานะ"] === value)
+          const newData = nerList.filter(item => item[variable.productStatus.value].includes(orderFilter))
+          const filter = newData.filter(item => item[variable.paymentStatus.value] === value)
           setSearchFilter(filter)
         }
 
@@ -136,14 +136,14 @@ const List = () => {
         if (payFilter === 'ทั้งหมด') {
           setSearchFilter(lists)
         } else {
-          const newData = lists.filter(item => item["สถานะ"] === payFilter)
+          const newData = lists.filter(item => item[variable.paymentStatus.value] === payFilter)
           setSearchFilter(newData)
         }
         // กด ทั้งหมดโดยที่ไม่ search
       } else {
-        const nerList = lists.filter(item => item.รายการ.toLowerCase().includes(searchText.toLowerCase()) || item["@twitter"].toLowerCase().includes(searchText.toLowerCase()));
+        const nerList = lists.filter(item => item.รายการ.toLowerCase().includes(searchText.toLowerCase()) || item[variable.twitter.value].toLowerCase().includes(searchText.toLowerCase()));
         if (payFilter !== 'ทั้งหมด') {
-          const newData = nerList.filter(item => item["สถานะ"] === payFilter)
+          const newData = nerList.filter(item => item[variable.paymentStatus.value] === payFilter)
           setSearchFilter(newData)
         } else {
           setSearchFilter(nerList)
@@ -153,22 +153,22 @@ const List = () => {
       if (searchText === '') {
         // กดโดยไม่ serch
         if (payFilter === 'ทั้งหมด') {
-          const newData = lists.filter(item => item["Tracking no."] === value)
+          const newData = lists.filter(item => item[variable.productStatus.value].includes(value))
           setSearchFilter(newData)
         } else {
-          const newData = lists.filter(item => item["สถานะ"] === payFilter)
-          const filter = newData.filter(item => item["Tracking no."] === value)
+          const newData = lists.filter(item => item[variable.paymentStatus.value] === payFilter)
+          const filter = newData.filter(item => item[variable.productStatus.value].includes(value))
           setSearchFilter(filter)
         }
       } else {
         if (payFilter === 'ทั้งหมด') {
-          const nerList = lists.filter(item => item.รายการ.toLowerCase().includes(searchText.toLowerCase()) || item["@twitter"].toLowerCase().includes(searchText.toLowerCase()));
-          const newData = nerList.filter(item => item["Tracking no."] === value)
+          const nerList = lists.filter(item => item.รายการ.toLowerCase().includes(searchText.toLowerCase()) || item[variable.twitter.value].toLowerCase().includes(searchText.toLowerCase()));
+          const newData = nerList.filter(item => item[variable.productStatus.value].includes(value))
           setSearchFilter(newData)
         } else {
-          const nerList = lists.filter(item => item.รายการ.toLowerCase().includes(searchText.toLowerCase()) || item["@twitter"].toLowerCase().includes(searchText.toLowerCase()));
-          const newData = nerList.filter(item => item["สถานะ"] === payFilter)
-          const filter = newData.filter(item => item["Tracking no."] === value)
+          const nerList = lists.filter(item => item.รายการ.toLowerCase().includes(searchText.toLowerCase()) || item[variable.twitter.value].toLowerCase().includes(searchText.toLowerCase()));
+          const newData = nerList.filter(item => item[variable.paymentStatus.value] === payFilter)
+          const filter = newData.filter(item => item[variable.productStatus.value].includes(value))
           setSearchFilter(filter)
         }
 
@@ -210,9 +210,7 @@ const List = () => {
     setSelectList(data)
   }
   const onCloseModal = () => {
-    console.log('asdasd')
     setShowModal(false)
-    setSelectList(null)
   }
   return (
     <>
@@ -221,8 +219,8 @@ const List = () => {
       <div style={{ display: 'flex', flexDirection: 'row', padding: 10 }}>
         <div style={{ width: 300 }}>
           <TextInput
-            placeholder="สินค้า หรือ @Twitter"
-            style={{ backgroundColor: 'white' }}
+            placeholder={serchInput.placeholder}
+            style={{ backgroundColor: serchInput.background }}
             value={searchText}
             onChange={(e) => onSearch(e.target.value)}
           />
@@ -238,17 +236,18 @@ const List = () => {
       </div>
       <Box direction="column" >
         <Box gap="small" direction="row" pad={{ horizontal: 'medium' }}>
-          <PayStatusFilter payFilter={payFilter} name="ทั้งหมด" size="small" pad={{ horizontal: "xsmall", vertical: 'xxsmall' }} onClick={() => onPayFilter('ทั้งหมด')}><Text size="xxsmall">ทั้งหมด</Text></PayStatusFilter>
-          <PayStatusFilter payFilter={payFilter} name="มัดจำ" size="small" pad={{ horizontal: "xsmall", vertical: 'xxsmall' }} onClick={() => onPayFilter('มัดจำ')}><Text size="xxsmall">มัดจำ</Text></PayStatusFilter>
-          <PayStatusFilter payFilter={payFilter} name="จ่ายเต็ม" size="small" pad={{ horizontal: "xsmall", vertical: 'xxsmall' }} onClick={() => onPayFilter('จ่ายเต็ม')}><Text size="xxsmall">จ่ายเต็ม</Text></PayStatusFilter>
-          <PayStatusFilter payFilter={payFilter} name="ยังไม่จ่าย" size="small" pad={{ horizontal: "xsmall", vertical: 'xxsmall' }} onClick={() => onPayFilter('ยังไม่จ่าย')}><Text size="xxsmall">ยังไม่จ่าย</Text></PayStatusFilter>
+          <PayStatusFilter payFilter={payFilter} name={payStatus["ทั้งหมด"].value} size="small" pad={{ horizontal: "xsmall", vertical: 'xxsmall' }} onClick={() => onPayFilter(payStatus["ทั้งหมด"].value)}><Text size="xxsmall">{payStatus["ทั้งหมด"].value}</Text></PayStatusFilter>
+          <PayStatusFilter payFilter={payFilter} name={payStatus["มัดจำ"].value} size="small" pad={{ horizontal: "xsmall", vertical: 'xxsmall' }} onClick={() => onPayFilter('มัดจำ')}><Text size="xxsmall">{payStatus["มัดจำ"].value}</Text></PayStatusFilter>
+          <PayStatusFilter payFilter={payFilter} name={payStatus["จ่ายเต็ม"].value} size="small" pad={{ horizontal: "xsmall", vertical: 'xxsmall' }} onClick={() => onPayFilter('จ่ายเต็ม')}><Text size="xxsmall">{payStatus["จ่ายเต็ม"].value}</Text></PayStatusFilter>
+          <PayStatusFilter payFilter={payFilter} name={payStatus["ยังไม่จ่าย"].value} size="small" pad={{ horizontal: "xsmall", vertical: 'xxsmall' }} onClick={() => onPayFilter('ยังไม่จ่าย')}><Text size="xxsmall">{payStatus["ยังไม่จ่าย"].value} </Text></PayStatusFilter>
         </Box>
         <Box gap="small" direction="row" pad={{ horizontal: 'medium', vertical: 'small' }}>
-          <PayStatusFilter payFilter={orderFilter} name="ทั้งหมด" size="small" pad={{ horizontal: "xsmall", vertical: 'xxsmall' }} onClick={() => onOrderFilter('ทั้งหมด')}><Text size="xxsmall">ทั้งหมด</Text></PayStatusFilter>
-          <PayStatusFilter payFilter={orderFilter} name="รอกด" size="small" pad={{ horizontal: "xsmall", vertical: 'xxsmall' }} onClick={() => onOrderFilter('รอกด')}><Text size="xxsmall">รอกด</Text></PayStatusFilter>
-          <PayStatusFilter payFilter={orderFilter} name="ของถึงไทยแล้ว" size="small" pad={{ horizontal: "xsmall", vertical: 'xxsmall' }} onClick={() => onOrderFilter('ของถึงไทยแล้ว')}><Text size="xxsmall">ถึงไทยแล้ว</Text></PayStatusFilter>
-          <PayStatusFilter payFilter={orderFilter} name="ส่งแล้ว(เกาหลี)" size="small" pad={{ horizontal: "xsmall", vertical: 'xxsmall' }} onClick={() => onOrderFilter('ส่งแล้ว(เกาหลี)')}><Text size="xxsmall">ส่งแล้ว-เกา</Text></PayStatusFilter>
-          <PayStatusFilter payFilter={orderFilter} name="ส่งแล้ว(ไทย)" size="small" pad={{ horizontal: "xsmall", vertical: 'xxsmall' }} onClick={() => onOrderFilter('ส่งแล้ว(ไทย)')}><Text size="xxsmall">ส่งแล้ว-ไทย</Text></PayStatusFilter>
+          <PayStatusFilter payFilter={orderFilter} name={trackingStatus["ทั้งหมด"].value} size="small" pad={{ horizontal: "xsmall", vertical: 'xxsmall' }} onClick={() => onOrderFilter(trackingStatus["ทั้งหมด"].value)}><Text size="xxsmall">{trackingStatus["ทั้งหมด"].value}</Text></PayStatusFilter>
+          <PayStatusFilter payFilter={orderFilter} name={trackingStatus["รอกด"].value} size="small" pad={{ horizontal: "xsmall", vertical: 'xxsmall' }} onClick={() => onOrderFilter(trackingStatus["รอกด"].value)}><Text size="xxsmall">{trackingStatus["รอกด"].value}</Text></PayStatusFilter>
+          <PayStatusFilter payFilter={orderFilter} name={trackingStatus["กดแล้ว"].value} size="small" pad={{ horizontal: "xsmall", vertical: 'xxsmall' }} onClick={() => onOrderFilter(trackingStatus["กดแล้ว"].value)}><Text size="xxsmall">{trackingStatus["กดแล้ว"].value}</Text></PayStatusFilter>
+          <PayStatusFilter payFilter={orderFilter} name={trackingStatus["รอส่ง"].value} size="small" pad={{ horizontal: "xsmall", vertical: 'xxsmall' }} onClick={() => onOrderFilter(trackingStatus["รอส่ง"].value)}><Text size="xxsmall">{trackingStatus["รอส่ง"].value}</Text></PayStatusFilter>
+          <PayStatusFilter payFilter={orderFilter} name={trackingStatus["ส่งแล้ว"].value} size="small" pad={{ horizontal: "xsmall", vertical: 'xxsmall' }} onClick={() => onOrderFilter(trackingStatus["ส่งแล้ว"].value)}><Text size="xxsmall">{trackingStatus["ส่งแล้ว"].value}</Text></PayStatusFilter>
+          <PayStatusFilter payFilter={orderFilter} name={"บ้านเกา"} size="small" pad={{ horizontal: "xsmall", vertical: 'xxsmall' }} onClick={() => onOrderFilter('บ้านเกา')}><Text size="xxsmall">บ้านเกา</Text></PayStatusFilter>
         </Box>
       </Box>
       {loading ? <center style={{ marginTop: 100 }} ><Loader /></center> :
@@ -256,7 +255,7 @@ const List = () => {
           {
             getList() ? getList().map(item => {
               return <CardComponent item={item} key={item.id} onSelectModal={onSelectModal} />
-            }) : <center style={{ marginTop: 100 }} ><Text size="large" color="white">Item Not Found</Text></center>
+            }) : <center style={{ marginTop: 100 }} ><Text size="large" color={color.fontColor}>{Notfound}</Text></center>
           }
         </div >
       }
@@ -267,13 +266,13 @@ const List = () => {
 
 const CardComponent = ({ item, onSelectModal }) => {
   return (
-    <Card background="light-1" margin={{ horizontal: "10px", vertical: "large" }} animation={['fadeIn']} onClick={() => onSelectModal(item)}>
-      <CardBody pad={{ horizontal: "small", vertical: "medium" }} background="#35424d"><Text truncate={true}>{item["รายการ"]}</Text></CardBody>
-      <CardFooter pad={{ horizontal: "medium", vertical: "10px" }} background="#394551">
-        <Text size="small">{item["@twitter"]}</Text>
+    <Card margin={{ horizontal: "10px", vertical: "large" }} animation={['fadeIn']} onClick={() => onSelectModal(item)}>
+      <CardBody pad={{ horizontal: "small", vertical: "medium" }} background={color.cardBody}><Text truncate={true}>{item[variable.product.value]}</Text></CardBody>
+      <CardFooter pad={{ horizontal: "medium", vertical: "10px" }} background={color.cardFooter}>
+        <Text size="small">{item[variable.twitter.value]}</Text>
         <Box gap="small" direction="row">
-          <TrackingStatus status={item["Tracking no."]} />
-          <PayStatus status={item["สถานะ"]} />
+          <TrackingStatus status={item[variable.productStatus.value]} />
+          <PayStatus status={item[variable.paymentStatus.value]} />
         </Box>
       </CardFooter>
     </Card>

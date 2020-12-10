@@ -1,50 +1,16 @@
 import {
   Box
 } from 'grommet';
+import { payStatus, logisStatus, trackingStatus } from '../masterdata'
 
-const getPayColor = (status) => {
-  if (status === "จ่ายเต็ม") {
-    return "#00C781"
-  } else if (status === "มัดจำ") {
-    return "#FFAA15"
-  } else {
-    return "#FF4040"
-  }
-}
-
-const getTrackingColor = (status) => {
-  if (status === "กดแล้ว") {
-    return "#00739D"
-  } else if (status === "รอกด") {
-    return "#CCCCCC"
-  } else if (status === "ของถึงไทยแล้ว") {
-    return "#7D4CDB"
-  } else if (status === "ส่งแล้ว(เกาหลี)") {
-    return "#A2423D"
-  } else if (status === "ส่งแล้ว(ไทย)") {
-    return "#FD6FFF"
-  } else {
-    return "#00C781"
-  }
-}
-
-const getLogisColor = (status) => {
-  if (status === "ลทบ.") {
-    return "#FFAA15"
-  } else if (status === "นัดรับ") {
-    return "#7D4CDB"
-  } else {
-    return "#FD6FFF"
-  }
-}
 const TrackingStatus = ({ status }) => {
-  return <Box size="small" style={{ backgroundColor: getTrackingColor(status), color: 'white', borderRadius: 6 }} pad={{ horizontal: "small", vertical: 'xxsmall' }}>{status || "-"}</Box>
+  return <Box size="small" style={{ backgroundColor: trackingStatus[status].color, color: 'white', borderRadius: 6 }} pad={{ horizontal: "small", vertical: 'xxsmall' }}>{status || "-"}</Box>
 }
 const PayStatus = ({ status }) => {
-  return <Box size="small" style={{ backgroundColor: getPayColor(status), color: 'white', borderRadius: 6 }} pad={{ horizontal: "small", vertical: 'xxsmall' }}>{status || "-"}</Box>
+  return <Box size="small" style={{ backgroundColor: payStatus[status].color, color: 'white', borderRadius: 6 }} pad={{ horizontal: "small", vertical: 'xxsmall' }}>{status || "-"}</Box>
 }
 const LogisStatus = ({ status }) => {
-  return <Box size="small" style={{ backgroundColor: getLogisColor(status), color: 'white', borderRadius: 6 }} pad={{ horizontal: "small", vertical: 'xxsmall' }}>{status || "-"}</Box>
+  return <Box size="small" style={{ backgroundColor: logisStatus[status].color, color: 'white', borderRadius: 6 }} pad={{ horizontal: "small", vertical: 'xxsmall' }}>{status || "-"}</Box>
 }
 export {
   TrackingStatus,
