@@ -24,7 +24,7 @@ const Footer = (props) => {
       <FooterItem path="/analyze" location={props.location.pathname} onClick={() => props.history.push("/analyze")} >
         <Analytics color="white" />
       </FooterItem>
-      <FooterItem path="/twitter" location={props.location.pathname} onClick={() => window.location.href = "https://docs.google.com/spreadsheets/d/1r1jCInlqAQqOrJ1sPUmslu1MT4KuQHB06Y1X93eB2a4/edit#gid=395009118"}>
+      <FooterItem path="/twitter" location={props.location.pathname} onClick={() => window.location.href = "https://docs.google.com/spreadsheets/d/1VPzFoGkIRKmjaTxXYPX8v4LTTwTwoeVYFxOFslZZpys/edit"}>
         <Notes color="white" path="/list" />
       </FooterItem>
 
