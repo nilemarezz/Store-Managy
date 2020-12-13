@@ -3,9 +3,12 @@ const creds = require('../config.json');
 // spreadsheet key is the long id in the sheets URL
 // local 1DLP-KXGv0_ykWUM07Gxl1iqQ2M3WCAs6SVn8anpOQxg
 // prod 1_lL70ZFhUBwXw7h-otL9NMVfxqHWFeJRtTaU1Vuejg8
+
+// catchy jp user 1A8mN8TNV41pfzwvcYOKW8QdeqxwCBJT_zsgkczqEMqw
+// catchy jp admin 1VPzFoGkIRKmjaTxXYPX8v4LTTwTwoeVYFxOFslZZpys
 // correct-format-admin 1-BH24rSD7C9WJ4tWu-7feO9PEL9k_mpKW7pqlcQtDoU
 // correct-format-user 1dOqmzfmLqhGFzpp-DlL596DdUCwmKEJ2vz_jmz6safY
-const doc = new GoogleSpreadsheet('1dOqmzfmLqhGFzpp-DlL596DdUCwmKEJ2vz_jmz6safY');
+const doc = new GoogleSpreadsheet('1A8mN8TNV41pfzwvcYOKW8QdeqxwCBJT_zsgkczqEMqw');
 
 
 const userAddList = async (body, name) => {
@@ -34,7 +37,6 @@ const userEditList = async (data, name) => {
 
   // const sheet = await doc.addSheet({ headerValues: ['@Twitter', 'email'] });
   // const rows = await sheet.getRows();
-  // console.log(rows[3]["@Twitter"])
 }
 
 const userCreateList = async () => {
@@ -45,7 +47,6 @@ const userCreateList = async () => {
       '@Twitter', 'Tracking no.', 'สถานะการจ่ายเงิน', 'รายการ', 'จำนวน'
       , "การจัดส่ง", 'สถานะสินค้า']
   });
-  console.log(sheet)
 }
 
 module.exports = { userAddList, userEditList, userCreateList }

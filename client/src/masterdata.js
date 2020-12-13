@@ -62,6 +62,10 @@ export const logisStatus = {
     value: "EMS",
     color: "#FD6FFF"
   },
+  "ยังไม่แจ้ง": {
+    value: "ยังไม่แจ้ง",
+    color: "grey"
+  }
 }
 export const trackingStatus = {
   "ทั้งหมด": {
@@ -112,7 +116,7 @@ export const variable = {
   "logist": { value: "การจัดส่ง", label: "การจัดส่ง" },
   "productStatus": { value: "สถานะสินค้า", label: "สถานะสินค้า" },
   "address": { value: "ที่อยู่", placeholder: "กรอกที่อยู่ในการจัดส่ง", label: "ที่อยู่", },
-  "price": { value: "ยอดที่โอน", placeholder: "กรอกจำนวนยอดที่ลูกค้าโอน", label: "ยอดที่โอน", },
+  "price": { value: "ยอดที่โอน", placeholder: "จำนวนยอดที่ลูกค้าโอน", label: "ยอดที่โอน", },
   "note": { value: "Note", placeholder: "กรอกเพื่อเติม", label: "Note", },
   "cost": { value: "ต้นทุน", placeholder: "กรอกต้นทุน", label: "ต้นทุน", },
   "salePrice": { value: "ราคาขาย", placeholder: "กรอกราคาขาย", label: "ราคาขาย", },
