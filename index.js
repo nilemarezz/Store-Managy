@@ -24,14 +24,14 @@ app.get("/list/:title", async (req, res) => {
 app.post("/add", async (req, res) => {
   try {
     const date = new Date()
-    const date_format = `${date.getMonth() + 1}_${date.getFullYear().toString().substring(2, 4)}`
+    const date_format = `${date.getMonth() + 1}_${date.getFullYear().toString()}`
     const data = { ...req.body, "กำไร": "0" };
     await addList(data, date_format)
     await userAddList(data, date_format)
     res.json({ result: true })
   } catch (err) {
-    res.json({ result: false })
     console.log(err)
+    res.json({ result: false })
   }
 })
 
@@ -47,8 +47,12 @@ app.put("/edit", async (req, res) => {
 })
 
 app.post("/create", async (req, res) => {
-  await createList()
-  await userCreateList()
+  try {
+    await createList()
+    await userCreateList()
+  } catch (err) {
+    console.log(err)
+  }
 })
 
 app.get("/summary/data", async (req, res) => {

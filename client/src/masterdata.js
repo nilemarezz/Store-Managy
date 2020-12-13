@@ -6,16 +6,16 @@ export const serchInput = {
 }
 
 export const selectData = [
-  { value: '10_20', label: 'OCT 2020' },
-  { value: '11_20', label: 'NOV 2020' },
-  { value: '12_20', label: 'DEC 2020' },
-  { value: '01_21', label: 'JAN 2021' },
-  { value: '02_21', label: 'FEB 2021' },
-  { value: '03_21', label: 'MAR 2021' },
-  { value: '04_21', label: 'APR 2021' },
-  { value: '05_21', label: 'MAY 2021' },
-  { value: '06_21', label: 'JUN 2021' },
-  { value: '07_21', label: 'JUL 2021' },]
+  { value: '10_2020', label: 'OCT 2020' },
+  { value: '11_2020', label: 'NOV 2020' },
+  { value: '12_2020', label: 'DEC 2020' },
+  { value: '01_2021', label: 'JAN 2021' },
+  { value: '02_2021', label: 'FEB 2021' },
+  { value: '03_2021', label: 'MAR 2021' },
+  { value: '04_2021', label: 'APR 2021' },
+  { value: '05_2021', label: 'MAY 2021' },
+  { value: '06_2021', label: 'JUN 2021' },
+  { value: '07_2021', label: 'JUL 2021' },]
 
 export const color = {
   cardBody: "#35424d",

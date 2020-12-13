@@ -3,7 +3,7 @@ const monthNames = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN",
   "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"
 ];
 export const getDateNow = () => {
-  return `${date.getMonth() + 1}_${date.getFullYear().toString().substring(2, 4)}`
+  return `${date.getMonth() + 1}_${date.getFullYear().toString()}`
 }
 
 export const getFullyDateNow = () => {
