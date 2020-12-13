@@ -48,6 +48,7 @@ app.put("/edit", async (req, res) => {
 
 app.post("/create", async (req, res) => {
   await createList()
+  await userCreateList()
 })
 
 app.get("/summary/data", async (req, res) => {

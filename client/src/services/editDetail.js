@@ -9,7 +9,7 @@ const editDetail = async (value) => {
     "สถานะการจ่ายเงิน": value[variable.paymentStatus.value],
     "สถานะสินค้า": value[variable.productStatus.value]
   }
-  const res = await fetch(`http://localhost:5000/edit`, {
+  const res = await fetch(`https://nodemanagy.herokuapp.com/edit`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json'

@@ -1,5 +1,5 @@
 const addList = async (value) => {
-  const res = await fetch(`http://localhost:5000/add`, {
+  const res = await fetch(`https://nodemanagy.herokuapp.com/add`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'

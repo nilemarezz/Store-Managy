@@ -1,5 +1,5 @@
 const getAnalyze = async () => {
-  const res = await fetch('http://localhost:5000/summary/data');
+  const res = await fetch('https://nodemanagy.herokuapp.com/summary/data');
   const data = await res.json()
   if (data.result) {
     return data.data
