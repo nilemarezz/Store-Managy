@@ -120,9 +120,9 @@ const getSummaryAccount = async () => {
   for (let i = 0; i < rows.length; i++) {
     data.push({
       "@Twitter": rows[i]["@Twitter"],
-      "จำนวน": rows[i]["จำนวน"],
-      "ยอดที่โอน": rows[i]["ยอดที่โอน"],
-      "กำไร": rows[i]["กำไร"],
+      "จำนวน": parseInt(rows[i]["จำนวน"]),
+      "ยอดที่โอน": parseInt(rows[i]["ยอดที่โอน"]),
+      "กำไร": parseInt(rows[i]["กำไร"]),
     })
   }
   return data
@@ -137,10 +137,10 @@ const getSummaryMonth = async () => {
   for (let i = 0; i < rows.length; i++) {
     data.push({
       "เดือน": rows[i]["เดือน"],
-      "จำนวน": rows[i]["จำนวน"],
-      "ยอดที่โอน": rows[i]["ยอดที่โอน"],
-      "กำไร": rows[i]["กำไร"],
-      "ต้นทุน": rows[i]["ต้นทุน"]
+      "จำนวน": parseInt(rows[i]["จำนวน"]),
+      "ยอดที่โอน": parseInt(rows[i]["ยอดที่โอน"]),
+      "กำไร": parseInt(rows[i]["กำไร"]),
+      "ต้นทุน": parseInt(rows[i]["ต้นทุน"])
     })
   }
   return data

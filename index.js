@@ -68,8 +68,15 @@ app.get("/summary/data", async (req, res) => {
       allcost = allcost + parseInt(dataMonth[i]["ต้นทุน"])
     }
     const dataAccount = await getSummaryAccount()
+    const dataAccount2 = await getSummaryAccount()
+    const sortprice = dataAccount.sort(dynamicSort("ยอดที่โอน")).splice(0, 3)
+    const sortAmount = dataAccount2.sort(dynamicSort("จำนวน")).splice(0, 3)
+    console.log(sortAmount)
     const resData = {
-      toprank: formatSummaryAccount(dataAccount),
+      toprank: {
+        sortByAmount: [...sortAmount],
+        sortByPrice: [...sortprice]
+      },
       filterByMonth: [{ "เดือน": 'ทั้งหมด', "จำนวน": allAmount, "ยอดที่โอน": allPrice, "ต้นทุน": allcost, "กำไร": allPrice - allcost }, ...dataMonth],
     }
 
@@ -78,11 +85,26 @@ app.get("/summary/data", async (req, res) => {
       result: true, data: resData
     })
   } catch (err) {
+    console.log(err)
     res.json({
       result: false
     })
   }
 })
+const dynamicSort = (property) => {
+  var sortOrder = -1;
+  if (property[0] === "-") {
+    sortOrder = 1;
+    property = property.substr(1);
+  }
+  return function (a, b) {
+    /* next line works with strings and numbers, 
+     * and you may want to customize it to your needs
+     */
+    var result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
+    return result * sortOrder;
+  }
+}
 
 app.get("/summary/toprank", async (req, res) => {
   const dataAccount = await getSummaryAccount()
@@ -90,19 +112,18 @@ app.get("/summary/toprank", async (req, res) => {
     result: true, data: formatSummaryAccount(dataAccount)
   })
 })
-const formatSummaryAccount = (data) => {
-  const sortByAmount = data.sort(function (a, b) {
-    return b['จำนวน'] - a['จำนวน'];
-  })
-  const sortByPrice = data.sort(function (a, b) {
-    return b.ยอดที่โอน - a.ยอดที่โอน;
-  })
-  console.log(sortByPrice)
-  return {
-    sortByPrice: sortByPrice.splice(0, 3),
-    sortByAmount: sortByAmount.splice(0, 3)
-  }
-}
+// const formatSummaryAccount = async (data) => {
+//   const sortByAmount = await data.sort(function (a, b) {
+//     return b['จำนวน'] - a['จำนวน'];
+//   })
+//   const sortByPrice = await data.sort(function (a, b) {
+//     return b['ยอดที่โอน'] - a['ยอดที่โอน'];
+//   })
+//   return await {
+//     sortByPrice: sortByPrice.splice(0, 3),
+//     sortByAmount: sortByAmount.splice(0, 3)
+//   }
+// }
 app.listen(port, () => {
   console.log('Server start at port' + port)
 })

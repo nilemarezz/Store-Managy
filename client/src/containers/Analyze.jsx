@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Box, Text, Card } from 'grommet';
 import { color } from '../masterdata'
-import { Trophy, History, Currency, LineChart } from 'grommet-icons'
+import { Trophy, History, Currency, LineChart, Refresh } from 'grommet-icons'
 import getAnalyze from '../services/getAnalyze'
 import { Loader } from '../components/Loader'
 import Select from 'react-select'
@@ -26,7 +26,8 @@ const Analyze = () => {
   const [filterChart, setFilterChart] = useState([])
   const [filterChartLabel, setFilterChartLabel] = useState('จำนวน')
   const [error, setError] = useState('')
-  useEffect(async () => {
+
+  const getDetail = async () => {
     setLoading(true)
     const data = await getAnalyze()
     if (data) {
@@ -52,6 +53,9 @@ const Analyze = () => {
       setError('Something went wrong')
       setLoading(false)
     }
+  }
+  useEffect(async () => {
+    await getDetail()
   }, [])
 
   const onChangeMonth = (value) => {
@@ -81,7 +85,8 @@ const Analyze = () => {
       <>
         {error === '' ?
           <Box pad="medium" gap="small">
-            <Box direction="row" justify="end">
+            <Box direction="row" justify="between" align="center">
+              <Refresh color="white" onClick={() => getDetail()} />
               <div style={{ width: 150 }}>
                 <Select
                   placeholder={select}
