@@ -1,9 +1,9 @@
 {
-  "short_name": "Catchy-JP",
-  "name": "Catchy-JP",
+  "short_name": "Brbitty",
+  "name": "Brbitty",
   "icons": [
     {
-      "src": "/images/logo-jp.jpg",
+      "src": "/images/logo-cn.jpg",
       "type": "image/jpg",
       "sizes": "1024x1024"
     }
