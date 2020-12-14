@@ -267,9 +267,10 @@ const List = () => {
 const CardComponent = ({ item, onSelectModal }) => {
   return (
     <Card margin={{ horizontal: "10px", vertical: "large" }} animation={['fadeIn']} onClick={() => onSelectModal(item)}>
-      <CardBody pad={{ horizontal: "small", vertical: "medium" }} background={color.cardBody}><Text truncate={true}>{item[variable.product.value]}</Text></CardBody>
+      <CardBody pad={{ horizontal: "small", vertical: "medium" }} background={color.cardBody}>
+        <Text truncate={true} color={color.fontColor} style={{ paddingLeft: 5 }}>{item[variable.product.value]}</Text></CardBody>
       <CardFooter pad={{ horizontal: "medium", vertical: "10px" }} background={color.cardFooter}>
-        <Text size="small">{item[variable.twitter.value]}</Text>
+        <Text size="small" color={color.fontColor}>{item[variable.twitter.value]}</Text>
         <Box gap="small" direction="row">
           <TrackingStatus status={item[variable.productStatus.value]} />
           <PayStatus status={item[variable.paymentStatus.value]} />

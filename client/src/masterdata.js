@@ -18,12 +18,15 @@ export const selectData = [
   { value: '07_2021', label: 'JUL 2021' },]
 
 export const color = {
-  cardBody: "#35424d",
-  cardFooter: "#394551",
+  cardBody: "#d6bae6",
+  cardFooter: "#dsc1f0",
   activate: "white",
   fontColor: 'white',
-  subfont: "lightgrey",
-  fontActivate: "black"
+  subfont: "white",
+  fontActivate: "black",
+  placeholder: "#e4e4e4",
+  background: "#bda4cb",
+  activateBackground: "#a690b3"
 }
 
 export const payStatus = {

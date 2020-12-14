@@ -158,7 +158,7 @@ const Analyze = () => {
                   chart: {
                     id: "basic-bar",
                     color: 'white',
-                    background: '#15202b'
+                    background: color.background
                   },
                   xaxis: {
                     categories: xaxis

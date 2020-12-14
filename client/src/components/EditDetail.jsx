@@ -1,9 +1,16 @@
-import { useState } from 'react'
 import { Box, Text, TextArea, TextInput } from 'grommet'
 import styled from 'styled-components'
 import { color, payStatus, trackingStatus, variable } from '../masterdata'
-import { Loader } from './Loader'
-import { Checkmark } from 'grommet-icons'
+const StyledField = styled(TextInput)`
+  ::placeholder{
+    color : ${color.placeholder};
+  }
+ `
+const StyledArea = styled(TextArea)`
+ ::placeholder{
+   color :${color.placeholder};
+ }
+`
 const PayStatusFilter = styled(Box)`
   border-radius: 6px; 
   ${props => props.name === props.payFilter ?
@@ -44,13 +51,13 @@ const EditDetail = ({ address, cost, setCost, paymethod, trackingNo, trackmethod
           <Box style={{ width: '50px' }}>
             <Text size="small" color={color.subfont}>{`${variable.address.label}  : `} </Text>
           </Box>
-          <TextArea
+          <StyledArea
             placeholder={variable.address.placeholder}
             resize={false}
             value={address}
             size="xsmall"
             onChange={event => setAddress(event.target.value)}
-            style={{ color: color.subfont, height: '85px', padding: '5px 5px' }}
+            style={{ color: color.subfont, height: '85px', padding: '5px 5px', border: '1px solid white' }}
           />
         </Box>
         <hr style={{ width: '80%' }}></hr>
@@ -58,11 +65,11 @@ const EditDetail = ({ address, cost, setCost, paymethod, trackingNo, trackmethod
           <Box style={{ width: '140px' }}>
             <Text size="small" color={color.subfont}>{`${variable.trackingNo.label}  : `} </Text>
           </Box>
-          <TextInput
+          <StyledField
             placeholder={variable.trackingNo.placeholder}
             value={trackingNo}
             onChange={event => settrackingNo(event.target.value)}
-            style={{ color: color.subfont, padding: '5px 5px' }}
+            style={{ color: color.subfont, padding: '5px 5px', border: '1px solid white' }}
             size="small"
           />
         </Box>
@@ -70,11 +77,11 @@ const EditDetail = ({ address, cost, setCost, paymethod, trackingNo, trackmethod
           <Box style={{ width: '140px' }}>
             <Text size="small" color={color.subfont}>{`${variable.cost.label}  : `} </Text>
           </Box>
-          <TextInput
+          <StyledField
             placeholder={variable.cost.placeholder}
             value={cost}
             onChange={event => setCost(event.target.value)}
-            style={{ color: color.subfont, padding: '5px 5px' }}
+            style={{ color: color.subfont, padding: '5px 5px', border: '1px solid white' }}
             size="small"
           />
         </Box>

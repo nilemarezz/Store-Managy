@@ -13,6 +13,17 @@ const PayStatusFilter = styled(Box)`
     :
     `border : 1px solid ${color.activate}; color :${color.fontColor};`}
   `
+
+const StyledField = styled(TextInput)`
+  ::placeholder{
+    color : ${color.placeholder};
+  }
+ `
+const StyledArea = styled(TextArea)`
+ ::placeholder{
+   color :${color.placeholder};
+ }
+`
 const Add = () => {
   const [twitter, setTwitter] = useState('')
   const [productInput, setproductInput] = useState('')
@@ -90,11 +101,11 @@ const Add = () => {
           </Box>
           <Box pad={{ horizontal: "medium", vertical: "small" }} gap="medium" >
             <Text color={color.fontColor} size="small">{variable.product.label}&nbsp;*</Text>
-            <TextInput name="value" placeholder={variable.product.placeholder} style={{ color: color.subfont, border: '1px solid white' }} value={productInput} onChange={(e) => setproductInput(e.target.value)} />
+            <StyledField name="value" placeholder={variable.product.placeholder} style={{ color: color.subfont, border: '1px solid white' }} value={productInput} onChange={(e) => setproductInput(e.target.value)} />
           </Box>
           <Box pad={{ horizontal: "medium", vertical: "small" }} gap="medium" >
             <Text color={color.fontColor} size="small">{variable.twitter.label}&nbsp;*</Text>
-            <TextInput name="value" placeholder={variable.twitter.placeholder} style={{ color: color.subfont, border: '1px solid white' }} value={twitter} onChange={(e) => setTwitter(e.target.value)} />
+            <StyledField name="value" placeholder={variable.twitter.placeholder} style={{ color: color.subfont, border: '1px solid white' }} value={twitter} onChange={(e) => setTwitter(e.target.value)} />
           </Box>
           <Box pad={{ horizontal: "medium", vertical: "small" }} gap="large" direction="row">
             <Box gap="small" direction="column">
@@ -136,25 +147,25 @@ const Add = () => {
           <Box pad={{ horizontal: "medium", vertical: "small" }} gap="medium" direction="row">
             <Box direction="column" gap="small" >
               <Text color={color.fontColor} size="small">{variable.price.label}&nbsp;*</Text>
-              <TextInput name="value" type="number" placeholder={variable.price.placeholder} style={{ color: color.subfont, border: '1px solid white' }} value={price} onChange={(e) => setPrice(e.target.value)} />
+              <StyledField name="value" type="number" placeholder={variable.price.placeholder} style={{ color: color.subfont, border: '1px solid white' }} value={price} onChange={(e) => setPrice(e.target.value)} />
             </Box>
             <Box direction="column" gap="small" >
               <Text color={color.fontColor} size="small">{variable.amount.label}&nbsp;*</Text>
-              <TextInput name="value" type="number" placeholder={variable.amount.placeholder} style={{ color: color.subfont, border: '1px solid white' }} value={amount} onChange={(e) => setAmount(e.target.value)} />
+              <StyledField name="value" type="number" placeholder={variable.amount.placeholder} style={{ color: color.subfont, border: '1px solid white' }} value={amount} onChange={(e) => setAmount(e.target.value)} />
             </Box>
           </Box>
           <Box pad={{ horizontal: "medium", vertical: "small" }} gap="medium" direction="row">
             <Box direction="column" gap="small" >
               <Text color={color.fontColor} size="small">{variable.salePrice.label}&nbsp;*</Text>
-              <TextInput name="value" type="number" placeholder={variable.salePrice.placeholder} style={{ color: color.subfont, border: '1px solid white' }} value={salePrice} onChange={(e) => setsalePrice(e.target.value)} />
+              <StyledField name="value" type="number" placeholder={variable.salePrice.placeholder} style={{ color: color.subfont, border: '1px solid white' }} value={salePrice} onChange={(e) => setsalePrice(e.target.value)} />
             </Box>
             <Box direction="column" gap="small" >
               <Text color={color.fontColor} size="small">{variable.cost.label}&nbsp;*</Text>
-              <TextInput name="value" type="number" placeholder={variable.cost.placeholder} style={{ color: color.subfont, border: '1px solid white' }} value={cost} onChange={(e) => setCost(e.target.value)} />
+              <StyledField name="value" type="number" placeholder={variable.cost.placeholder} style={{ color: color.subfont, border: '1px solid white' }} value={cost} onChange={(e) => setCost(e.target.value)} />
             </Box>
             <Box direction="column" gap="small" >
               <Text color={color.fontColor} size="small">{variable.deliveryCostPay.label}&nbsp;*</Text>
-              <TextInput name="value" type="number" placeholder={variable.deliveryCostPay.placeholder} style={{ color: color.subfont, border: '1px solid white' }} value={deliveryCostPay} onChange={(e) => setdeliveryCostPay(e.target.value)} />
+              <StyledField name="value" type="number" placeholder={variable.deliveryCostPay.placeholder} style={{ color: color.subfont, border: '1px solid white' }} value={deliveryCostPay} onChange={(e) => setdeliveryCostPay(e.target.value)} />
             </Box>
           </Box>
           {/* <Box pad={{ horizontal: "medium", vertical: "small" }} gap="medium" direction="row">
@@ -166,11 +177,11 @@ const Add = () => {
           <Box pad={{ horizontal: "medium", vertical: "small" }} gap="medium" direction="row">
             <Box direction="column" gap="small" >
               <Text color={color.fontColor} size="small">{variable.address.label}</Text>
-              <TextArea name="value" placeholder={variable.address.placeholder} style={{ color: color.subfont, border: '1px solid white' }} value={address} onChange={(e) => setAddress(e.target.value)} />
+              <StyledArea name="value" placeholder={variable.address.placeholder} style={{ color: color.subfont, border: '1px solid white' }} value={address} onChange={(e) => setAddress(e.target.value)} />
             </Box>
             <Box direction="column" gap="small" >
               <Text color={color.fontColor} size="small">{variable.note.label}</Text>
-              <TextArea name="value" placeholder={variable.note.placeholder} style={{ color: color.subfont, border: '1px solid white' }} value={note} onChange={(e) => setNote(e.target.value)} />
+              <StyledArea name="value" placeholder={variable.note.placeholder} style={{ color: color.subfont, border: '1px solid white' }} value={note} onChange={(e) => setNote(e.target.value)} />
             </Box>
           </Box>
         </>
