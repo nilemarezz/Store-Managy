@@ -126,7 +126,6 @@ const Analyze = () => {
                   return (
                     <Card background="light-1">
                       <Box pad="small" justify="around" direction="row" gap="small">
-                        <Trophy color={i === 0 ? "" : "light-1"} size="medium" />
                         <Text>{item["@Twitter"]}</Text>
                         <Text>{item["จำนวน"]}</Text>
                       </Box>
@@ -140,7 +139,6 @@ const Analyze = () => {
                   return (
                     <Card background="light-1">
                       <Box pad="small" justify="around" direction="row" gap="small">
-                        <Trophy color={i === 0 ? "" : "light-1"} size="medium" />
                         <Text>{item["@Twitter"]}</Text>
                         <Text>{item["ยอดที่โอน"]}</Text>
                       </Box>
@@ -148,7 +146,6 @@ const Analyze = () => {
                   )
                 })}
               </Box>
-
             </Box>
             <Box gap="small" direction="row">
               <PayStatusFilter payFilter={filterChartLabel} name="จำนวน" size="small" pad={{ horizontal: "xsmall", vertical: 'xxsmall' }} onClick={() => onChangeChart("จำนวน")}><Text size="xxsmall">จำนวน</Text></PayStatusFilter>

@@ -4,9 +4,10 @@ const creds = require('../config.json');
 // catchy jp admin 1VPzFoGkIRKmjaTxXYPX8v4LTTwTwoeVYFxOFslZZpys
 // correct-format-admin 1-BH24rSD7C9WJ4tWu-7feO9PEL9k_mpKW7pqlcQtDoU
 // correct-format-user 1dOqmzfmLqhGFzpp-DlL596DdUCwmKEJ2vz_jmz6safY
-const doc = new GoogleSpreadsheet('1VPzFoGkIRKmjaTxXYPX8v4LTTwTwoeVYFxOFslZZpys');
 
-const getListByTitle = async (name) => {
+
+const getListByTitle = async (name, file) => {
+  const doc = new GoogleSpreadsheet(file);
   await doc.useServiceAccountAuth(creds);
   await doc.loadInfo();
   const sheet = doc.sheetsByTitle[name];
@@ -36,24 +37,17 @@ const getListByTitle = async (name) => {
   return data
 }
 
-const addList = async (body, name) => {
+const addList = async (body, name, admin) => {
+  const doc = new GoogleSpreadsheet(admin);
   await doc.useServiceAccountAuth(creds);
   await doc.loadInfo();
 
   // month
   const sheetMonth = doc.sheetsByTitle[name];
   const addMonth = await sheetMonth.addRow(body);
-  const rowsMonth = await sheetMonth.getRows();
-  const monthId = addMonth._rowNumber
-  rowsMonth[monthId - 2]["กำไร"] = `=SUM(I${monthId}-K${monthId}-N${monthId})`
-  await rowsMonth[monthId - 2].save();
   // raw
   const sheetRaw = doc.sheetsByTitle["raw"];
   const addRaw = await sheetRaw.addRow(body);
-  const rowsRaw = await sheetRaw.getRows();
-  const rawId = addRaw._rowNumber
-  rowsRaw[rawId - 2]["กำไร"] = `=SUM(I${rawId}-K${rawId}-N${rawId})`
-  await rowsRaw[rawId - 2].save();
   return true
 }
 // const updateProfit = async (id, rawId, name) => {
@@ -75,8 +69,10 @@ const addList = async (body, name) => {
 //   // rowsRaw[id]["กำไร"] = `=SUM(I${id}-K${id}-N${id})`
 
 // }
-const editList = async (data, name) => {
+const editList = async (data, name, admin) => {
+
   try {
+    const doc = new GoogleSpreadsheet(admin);
     await doc.useServiceAccountAuth(creds);
     await doc.loadInfo();
     const sheet = doc.sheetsByTitle[name];
@@ -95,6 +91,7 @@ const editList = async (data, name) => {
 }
 
 const createList = async () => {
+  const doc = new GoogleSpreadsheet('1VPzFoGkIRKmjaTxXYPX8v4LTTwTwoeVYFxOFslZZpys');
   await doc.useServiceAccountAuth(creds);
   await doc.loadInfo();
   const sheet = await doc.addSheet({
@@ -105,6 +102,7 @@ const createList = async () => {
 }
 
 const addRaw = async (body) => {
+  const doc = new GoogleSpreadsheet('1VPzFoGkIRKmjaTxXYPX8v4LTTwTwoeVYFxOFslZZpys');
   await doc.useServiceAccountAuth(creds);
   await doc.loadInfo();
   const sheet = doc.sheetsByTitle["raw"];
@@ -112,7 +110,8 @@ const addRaw = async (body) => {
   return id._rowNumber
 }
 
-const getSummaryAccount = async () => {
+const getSummaryAccount = async (admin) => {
+  const doc = new GoogleSpreadsheet(admin);
   await doc.useServiceAccountAuth(creds);
   await doc.loadInfo();
   const sheet = doc.sheetsByTitle["all_summary"];
@@ -129,7 +128,8 @@ const getSummaryAccount = async () => {
   return data
 }
 
-const getSummaryMonth = async () => {
+const getSummaryMonth = async (admin) => {
+  const doc = new GoogleSpreadsheet(admin);
   await doc.useServiceAccountAuth(creds);
   await doc.loadInfo();
   const sheet = doc.sheetsByTitle["month_summary"];

@@ -57,7 +57,6 @@ const Modal = ({ showModal, onCloseModal, selectList }) => {
     data[variable.address.value] = address === null ? selectList[variable.address.value] : address
     data[variable.cost.value] = cost === null ? selectList[variable.cost.value] : cost
     const res = await editDetailService(data)
-    console.log(res)
     if (res) {
       setLoading(false)
       backClick()

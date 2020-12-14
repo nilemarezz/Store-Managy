@@ -8,10 +8,11 @@ const creds = require('../config.json');
 // catchy jp admin 1VPzFoGkIRKmjaTxXYPX8v4LTTwTwoeVYFxOFslZZpys
 // correct-format-admin 1-BH24rSD7C9WJ4tWu-7feO9PEL9k_mpKW7pqlcQtDoU
 // correct-format-user 1dOqmzfmLqhGFzpp-DlL596DdUCwmKEJ2vz_jmz6safY
-const doc = new GoogleSpreadsheet('1A8mN8TNV41pfzwvcYOKW8QdeqxwCBJT_zsgkczqEMqw');
 
 
-const userAddList = async (body, name) => {
+
+const userAddList = async (body, name, user) => {
+  const doc = new GoogleSpreadsheet(user);
   await doc.useServiceAccountAuth(creds);
   await doc.loadInfo();
   const sheet = doc.sheetsByTitle[name];
@@ -19,8 +20,9 @@ const userAddList = async (body, name) => {
   return true
 }
 
-const userEditList = async (data, name) => {
+const userEditList = async (data, name, user) => {
   try {
+    const doc = new GoogleSpreadsheet(user);
     await doc.useServiceAccountAuth(creds);
     await doc.loadInfo();
     const sheet = doc.sheetsByTitle[name];
@@ -40,6 +42,7 @@ const userEditList = async (data, name) => {
 }
 
 const userCreateList = async () => {
+  const doc = new GoogleSpreadsheet('1A8mN8TNV41pfzwvcYOKW8QdeqxwCBJT_zsgkczqEMqw');
   await doc.useServiceAccountAuth(creds);
   await doc.loadInfo();
   const sheet = await doc.addSheet({

@@ -11,9 +11,9 @@ app.use(morgan(':method :url :status :res[content-length] - :response-time ms :d
 app.use(cors());
 app.use(bodyParser.json())
 
-app.get("/list/:title", async (req, res) => {
+app.get("/list", async (req, res) => {
   try {
-    const rows = await getListByTitle(req.params.title)
+    const rows = await getListByTitle(req.query.sheet, req.query.admin)
     res.json({ result: true, data: rows })
   } catch (err) {
     res.json({ result: false })
@@ -25,9 +25,8 @@ app.post("/add", async (req, res) => {
   try {
     const date = new Date()
     const date_format = `${date.getMonth() + 1}_${date.getFullYear().toString()}`
-    const data = { ...req.body, "กำไร": "0" };
-    await addList(data, date_format)
-    await userAddList(data, date_format)
+    await addList(req.body, date_format, req.query.admin)
+    await userAddList(req.body, date_format, req.query.user)
     res.json({ result: true })
   } catch (err) {
     console.log(err)
@@ -38,8 +37,8 @@ app.post("/add", async (req, res) => {
 app.put("/edit", async (req, res) => {
   try {
     const sheet = req.body.sheet
-    await editList(req.body, sheet)
-    await userEditList(req.body, sheet)
+    await editList(req.body, sheet, req.query.admin)
+    await userEditList(req.body, sheet, req.query.user)
     res.json({ result: true })
   } catch (err) {
     res.json({ result: false })
@@ -57,7 +56,7 @@ app.post("/create", async (req, res) => {
 
 app.get("/summary/data", async (req, res) => {
   try {
-    const dataMonth = await getSummaryMonth()
+    const dataMonth = await getSummaryMonth(req.query.admin)
     let allAmount = 0
     let allPrice = 0
     let allcost = 0
@@ -67,11 +66,10 @@ app.get("/summary/data", async (req, res) => {
       allPrice = allPrice + parseInt(dataMonth[i]["ยอดที่โอน"])
       allcost = allcost + parseInt(dataMonth[i]["ต้นทุน"])
     }
-    const dataAccount = await getSummaryAccount()
-    const dataAccount2 = await getSummaryAccount()
+    const dataAccount = await getSummaryAccount(req.query.admin)
+    const dataAccount2 = await getSummaryAccount(req.query.admin)
     const sortprice = dataAccount.sort(dynamicSort("ยอดที่โอน")).splice(0, 3)
     const sortAmount = dataAccount2.sort(dynamicSort("จำนวน")).splice(0, 3)
-    console.log(sortAmount)
     const resData = {
       toprank: {
         sortByAmount: [...sortAmount],
@@ -106,24 +104,6 @@ const dynamicSort = (property) => {
   }
 }
 
-app.get("/summary/toprank", async (req, res) => {
-  const dataAccount = await getSummaryAccount()
-  res.json({
-    result: true, data: formatSummaryAccount(dataAccount)
-  })
-})
-// const formatSummaryAccount = async (data) => {
-//   const sortByAmount = await data.sort(function (a, b) {
-//     return b['จำนวน'] - a['จำนวน'];
-//   })
-//   const sortByPrice = await data.sort(function (a, b) {
-//     return b['ยอดที่โอน'] - a['ยอดที่โอน'];
-//   })
-//   return await {
-//     sortByPrice: sortByPrice.splice(0, 3),
-//     sortByAmount: sortByAmount.splice(0, 3)
-//   }
-// }
 app.listen(port, () => {
   console.log('Server start at port' + port)
 })
