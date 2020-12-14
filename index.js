@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express()
-const config = require('./config.json')
+require('dotenv').config({ path: __dirname + '/.env' })
 const { getListByTitle, addList, editList, createList, addRaw, getSummaryAccount, getSummaryMonth } = require('./services/adminsheet')
 const { userCreateList, userAddList, userEditList } = require('./services/usersheet')
 var bodyParser = require('body-parser')
@@ -10,6 +10,7 @@ const port = process.env.PORT || 5000
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :date'));
 app.use(cors());
 app.use(bodyParser.json())
+
 
 app.get("/list", async (req, res) => {
   try {

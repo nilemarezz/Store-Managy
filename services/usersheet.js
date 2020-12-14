@@ -1,5 +1,5 @@
 const { GoogleSpreadsheet } = require('google-spreadsheet');
-const creds = require('../config.json');
+const creds = require('../config');
 // spreadsheet key is the long id in the sheets URL
 // local 1DLP-KXGv0_ykWUM07Gxl1iqQ2M3WCAs6SVn8anpOQxg
 // prod 1_lL70ZFhUBwXw7h-otL9NMVfxqHWFeJRtTaU1Vuejg8
@@ -13,7 +13,10 @@ const creds = require('../config.json');
 
 const userAddList = async (body, name, user) => {
   const doc = new GoogleSpreadsheet(user);
-  await doc.useServiceAccountAuth(creds);
+  await doc.useServiceAccountAuth({
+    client_email: creds.client_id,
+    private_key: creds.private_key.replace(new RegExp("\\\\n", "\g"), "\n"),
+  });
   await doc.loadInfo();
   const sheet = doc.sheetsByTitle[name];
   const larryRow = await sheet.addRow(body);
@@ -23,7 +26,10 @@ const userAddList = async (body, name, user) => {
 const userEditList = async (data, name, user) => {
   try {
     const doc = new GoogleSpreadsheet(user);
-    await doc.useServiceAccountAuth(creds);
+    await doc.useServiceAccountAuth({
+      client_email: creds.client_id,
+      private_key: creds.private_key.replace(new RegExp("\\\\n", "\g"), "\n"),
+    });
     await doc.loadInfo();
     const sheet = doc.sheetsByTitle[name];
     const rows = await sheet.getRows();
@@ -43,7 +49,10 @@ const userEditList = async (data, name, user) => {
 
 const userCreateList = async () => {
   const doc = new GoogleSpreadsheet('1A8mN8TNV41pfzwvcYOKW8QdeqxwCBJT_zsgkczqEMqw');
-  await doc.useServiceAccountAuth(creds);
+  await doc.useServiceAccountAuth({
+    client_email: creds.client_id,
+    private_key: creds.private_key.replace(new RegExp("\\\\n", "\g"), "\n"),
+  });
   await doc.loadInfo();
   const sheet = await doc.addSheet({
     headerValues: [

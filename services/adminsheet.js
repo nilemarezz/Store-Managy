@@ -1,14 +1,12 @@
 const { GoogleSpreadsheet } = require('google-spreadsheet');
-const creds = require('../config.json');
-// catchy jp user 1A8mN8TNV41pfzwvcYOKW8QdeqxwCBJT_zsgkczqEMqw
-// catchy jp admin 1VPzFoGkIRKmjaTxXYPX8v4LTTwTwoeVYFxOFslZZpys
-// correct-format-admin 1-BH24rSD7C9WJ4tWu-7feO9PEL9k_mpKW7pqlcQtDoU
-// correct-format-user 1dOqmzfmLqhGFzpp-DlL596DdUCwmKEJ2vz_jmz6safY
-
+const creds = require('../config');
 
 const getListByTitle = async (name, file) => {
   const doc = new GoogleSpreadsheet(file);
-  await doc.useServiceAccountAuth(creds);
+  await doc.useServiceAccountAuth({
+    client_email: creds.client_id,
+    private_key: creds.private_key.replace(new RegExp("\\\\n", "\g"), "\n"),
+  });
   await doc.loadInfo();
   const sheet = doc.sheetsByTitle[name];
   const rows = await sheet.getRows();
@@ -39,7 +37,10 @@ const getListByTitle = async (name, file) => {
 
 const addList = async (body, name, admin) => {
   const doc = new GoogleSpreadsheet(admin);
-  await doc.useServiceAccountAuth(creds);
+  await doc.useServiceAccountAuth({
+    client_email: creds.client_id,
+    private_key: creds.private_key.replace(new RegExp("\\\\n", "\g"), "\n"),
+  });
   await doc.loadInfo();
 
   // month
@@ -50,30 +51,15 @@ const addList = async (body, name, admin) => {
   const addRaw = await sheetRaw.addRow(body);
   return true
 }
-// const updateProfit = async (id, rawId, name) => {
-//   await doc.useServiceAccountAuth(creds);
-//   await doc.loadInfo();
-//   const sheetMonth = doc.sheetsByTitle[name];
-//   const rowsMonth = await sheetMonth.getRows();
-//   rowsMonth[id - 2]["กำไร"] = `=SUM(I${id}-K${id}-N${id})`
-//   await rowsMonth[id - 2].save();
 
-//   const sheetRaw = doc.sheetsByTitle["raw"];
-//   const rowsRaw = await sheetRaw.getRows();
-//   rowsRaw[rawId - 2]["กำไร"] = `=SUM(I${rawId}-K${rawId}-N${rawId})`
-//   await rowsRaw[rawId - 2].save();
-
-//   return true
-//   // const sheetRaw = doc.sheetsByTitle["raw"];
-//   // const rowsRaw = await sheetRaw.getRows();
-//   // rowsRaw[id]["กำไร"] = `=SUM(I${id}-K${id}-N${id})`
-
-// }
 const editList = async (data, name, admin) => {
 
   try {
     const doc = new GoogleSpreadsheet(admin);
-    await doc.useServiceAccountAuth(creds);
+    await doc.useServiceAccountAuth({
+      client_email: creds.client_id,
+      private_key: creds.private_key.replace(new RegExp("\\\\n", "\g"), "\n"),
+    });
     await doc.loadInfo();
     const sheet = doc.sheetsByTitle[name];
     const rows = await sheet.getRows();
@@ -92,7 +78,10 @@ const editList = async (data, name, admin) => {
 
 const createList = async () => {
   const doc = new GoogleSpreadsheet('1VPzFoGkIRKmjaTxXYPX8v4LTTwTwoeVYFxOFslZZpys');
-  await doc.useServiceAccountAuth(creds);
+  await doc.useServiceAccountAuth({
+    client_email: creds.client_id,
+    private_key: creds.private_key.replace(new RegExp("\\\\n", "\g"), "\n"),
+  });
   await doc.loadInfo();
   const sheet = await doc.addSheet({
     headerValues: [
@@ -103,7 +92,10 @@ const createList = async () => {
 
 const addRaw = async (body) => {
   const doc = new GoogleSpreadsheet('1VPzFoGkIRKmjaTxXYPX8v4LTTwTwoeVYFxOFslZZpys');
-  await doc.useServiceAccountAuth(creds);
+  await doc.useServiceAccountAuth({
+    client_email: creds.client_id,
+    private_key: creds.private_key.replace(new RegExp("\\\\n", "\g"), "\n"),
+  });
   await doc.loadInfo();
   const sheet = doc.sheetsByTitle["raw"];
   const id = await sheet.addRow(body);
@@ -112,7 +104,10 @@ const addRaw = async (body) => {
 
 const getSummaryAccount = async (admin) => {
   const doc = new GoogleSpreadsheet(admin);
-  await doc.useServiceAccountAuth(creds);
+  await doc.useServiceAccountAuth({
+    client_email: creds.client_id,
+    private_key: creds.private_key.replace(new RegExp("\\\\n", "\g"), "\n"),
+  });
   await doc.loadInfo();
   const sheet = doc.sheetsByTitle["all_summary"];
   const rows = await sheet.getRows();
@@ -130,7 +125,10 @@ const getSummaryAccount = async (admin) => {
 
 const getSummaryMonth = async (admin) => {
   const doc = new GoogleSpreadsheet(admin);
-  await doc.useServiceAccountAuth(creds);
+  await doc.useServiceAccountAuth({
+    client_email: creds.client_id,
+    private_key: creds.private_key.replace(new RegExp("\\\\n", "\g"), "\n"),
+  });
   await doc.loadInfo();
   const sheet = doc.sheetsByTitle["month_summary"];
   const rows = await sheet.getRows();
