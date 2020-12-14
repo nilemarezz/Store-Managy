@@ -7,7 +7,8 @@ const editDetail = async (value) => {
     "Tracking no.": value[variable.trackingNo.value],
     "sheet": value[variable.sheet.value],
     "สถานะการจ่ายเงิน": value[variable.paymentStatus.value],
-    "สถานะสินค้า": value[variable.productStatus.value]
+    "สถานะสินค้า": value[variable.productStatus.value],
+    "ต้นทุน": value[variable.cost.value]
   }
   const res = await fetch(`https://nodemanagy.herokuapp.com/edit`, {
     method: 'PUT',

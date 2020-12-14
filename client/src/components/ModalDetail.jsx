@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Box, Text } from 'grommet'
-import { Close, Edit, LinkPrevious } from 'grommet-icons'
+import { Close, Edit, LinkPrevious, Checkmark } from 'grommet-icons'
 import ItemDetail from '../components/ItemDetail'
 import EditDetail from '../components/EditDetail'
 import { color, variable } from '../masterdata'
@@ -28,12 +28,14 @@ const Modal = ({ showModal, onCloseModal, selectList }) => {
   const [address, setAddress] = useState(null)
   const [loading, setLoading] = useState(false)
   const [errorMsg, seterrorMsg] = useState('')
+  const [cost, setCost] = useState(null)
   const closeModal = () => {
     setPaymethod(null)
     settrackmethod(null)
     settrackingNo(null)
     setAddress(null)
     setOnEdit(false)
+    setCost(null)
     seterrorMsg('')
     onCloseModal()
   }
@@ -42,6 +44,7 @@ const Modal = ({ showModal, onCloseModal, selectList }) => {
     settrackmethod(null)
     settrackingNo(null)
     setAddress(null)
+    setCost(null)
     seterrorMsg('')
     setOnEdit(false)
   }
@@ -52,6 +55,7 @@ const Modal = ({ showModal, onCloseModal, selectList }) => {
     data[variable.productStatus.value] = trackmethod === null ? selectList[variable.productStatus.value] : trackmethod
     data[variable.trackingNo.value] = trackingNo === null ? selectList[variable.trackingNo.value] : trackingNo
     data[variable.address.value] = address === null ? selectList[variable.address.value] : address
+    data[variable.cost.value] = cost === null ? selectList[variable.cost.value] : cost
     const res = await editDetailService(data)
     console.log(res)
     if (res) {
@@ -79,9 +83,9 @@ const Modal = ({ showModal, onCloseModal, selectList }) => {
                 <Close size="medium" color={color.fontColor} onClick={() => closeModal()} />
               </Box>
               <Box pad={{ vertical: "small", horizontal: 'medium' }}>
-                <Text color={color.fontColor} size="large"><center><strong>{selectList[variable.product.value]}</strong></center></Text>
+                <Text color={color.fontColor} size="medium"><center><strong>{selectList[variable.product.value]}asdasdasdasdasdasdasdasdas</strong></center></Text>
                 <Box pad={{ vertical: 'small' }}>
-                  <Text color={color.fontColor} size="medium" color={color.subfont}>{selectList[variable.twitter.value]}</Text>
+                  <Text color={color.fontColor} size="small" color={color.subfont}>{selectList[variable.twitter.value]}</Text>
                 </Box>
               </Box>
               {onEdit ?
@@ -92,14 +96,23 @@ const Modal = ({ showModal, onCloseModal, selectList }) => {
                     trackmethod={trackmethod === null ? selectList[variable.productStatus.value] : trackmethod}
                     trackingNo={trackingNo === null ? selectList[variable.trackingNo.value] : trackingNo}
                     address={address === null ? selectList[variable.address.value] : address}
+                    cost={cost === null ? selectList[variable.cost.value] : cost}
                     setPaymethod={(value) => setPaymethod(value)}
                     settrackmethod={(value => settrackmethod(value))}
                     setAddress={value => setAddress(value)}
                     settrackingNo={value => settrackingNo(value)}
+                    setCost={value => setCost(value)}
                     backClick={backClick}
                     submitEditDetail={submitEditDetail}
                     errorMsg={errorMsg}
                   /> : <ItemDetail selectList={selectList} />}
+              {onEdit ?
+                loading ? null :
+                  <Box justify="between" direction="row" pad={{ vertical: 'medium', horizontal: "medium" }} gap="small" align="center" >
+                    <Text size="small" color={"red"} >{errorMsg} </Text>
+                    <Checkmark color={color.fontColor} onClick={() => submitEditDetail()} />
+                  </Box>
+                : null}
             </motion.div>
           </div>
         </>

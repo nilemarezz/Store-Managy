@@ -85,6 +85,7 @@ const editList = async (data, name) => {
     rows[data.id]['สถานะการจ่ายเงิน'] = data["สถานะการจ่ายเงิน"]
     rows[data.id]['สถานะสินค้า'] = data["สถานะสินค้า"]
     rows[data.id]['ที่อยู่'] = data["ที่อยู่"]
+    rows[data.id]['ต้นทุน'] = data["ต้นทุน"]
     await rows[data["id"]].save();
     return true
 
