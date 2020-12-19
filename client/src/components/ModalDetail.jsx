@@ -82,7 +82,7 @@ const Modal = ({ showModal, onCloseModal, selectList }) => {
                 <Close size="medium" color={color.fontColor} onClick={() => closeModal()} />
               </Box>
               <Box pad={{ vertical: "small", horizontal: 'medium' }}>
-                <Text color={color.fontColor} size="medium"><center><strong>{selectList[variable.product.value]}asdasdasdasdasdasdasdasdas</strong></center></Text>
+                <Text color={color.fontColor} size="medium"><center><strong>{selectList[variable.product.value]}</strong></center></Text>
                 <Box pad={{ vertical: 'small' }}>
                   <Text color={color.fontColor} size="small" color={color.subfont}>{selectList[variable.twitter.value]}</Text>
                 </Box>
