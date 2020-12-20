@@ -1,11 +1,11 @@
 import * as React from "react";
 import { motion } from "framer-motion";
 
-export const Loader = () => {
+export const Loader = (props) => {
   return (
     <motion.div
       style={{
-        background: "white",
+        background: props.color ? props.color : 'white',
         borderRadius: "30px",
         width: "60px",
         height: "60px",

@@ -1,4 +1,4 @@
-import { Box, Text, TextArea, TextInput } from 'grommet'
+import { Box, Text, TextArea, TextInput, } from 'grommet'
 import styled from 'styled-components'
 import { color, payStatus, trackingStatus, variable } from '../masterdata'
 const StyledField = styled(TextInput)`
@@ -19,7 +19,18 @@ const PayStatusFilter = styled(Box)`
     `border : 1px solid ${color.activate}; color :${color.fontColor};`}
   `
 
-const EditDetail = ({ address, cost, setCost, paymethod, trackingNo, trackmethod, setPaymethod, settrackmethod, setAddress, settrackingNo, errorMsg, submitEditDetail }) => {
+const ButtonDelete = styled.div`
+  background-color : #f16d83;
+  color : white;
+  width: 100%;
+  display : flex;
+  flex-direction: row;
+  justify-content : center;
+  align-items : center;
+  border-radius: 5px;
+`
+
+const EditDetail = ({ id, address, cost, setCost, paymethod, trackingNo, trackmethod, setPaymethod, settrackmethod, setAddress, settrackingNo, selectDeleteList }) => {
 
   return (
     <div style={{ height: 350, overflow: 'scroll' }}>
@@ -84,6 +95,9 @@ const EditDetail = ({ address, cost, setCost, paymethod, trackingNo, trackmethod
             style={{ color: color.subfont, padding: '5px 5px', border: '1px solid white' }}
             size="small"
           />
+        </Box>
+        <Box direction="row" gap="small" pad={{ vertical: 'small' }}>
+          <ButtonDelete onClick={() => selectDeleteList(id)}><Text size="small" style={{ padding: 3 }}>DELETE</Text></ButtonDelete>
         </Box>
       </Box>
     </div>

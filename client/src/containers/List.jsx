@@ -212,9 +212,12 @@ const List = () => {
   const onCloseModal = () => {
     setShowModal(false)
   }
+  const onDeleteList = (id) => {
+    onRefresh()
+  }
   return (
     <>
-      <ModalDetail showModal={showModal} onCloseModal={onCloseModal} selectList={selectList} />
+      <ModalDetail showModal={showModal} onCloseModal={onCloseModal} selectList={selectList} onDeleteList={onDeleteList} />
       <Header onRefresh={() => onRefresh()} />
       <div style={{ display: 'flex', flexDirection: 'row', padding: 10 }}>
         <div style={{ width: 300 }}>
@@ -254,7 +257,7 @@ const List = () => {
         <div div style={{ overflow: "scroll", height: 'calc(100vh - 260px)', marginTop: 10 }}>
           {
             getList() ? getList().map(item => {
-              return <CardComponent item={item} key={item.id} onSelectModal={onSelectModal} />
+              return <CardComponent item={item} key={item.id} onSelectModal={onSelectModal} onDeleteList={onDeleteList} />
             }) : <center style={{ marginTop: 100 }} ><Text size="large" color={color.fontColor}>{Notfound}</Text></center>
           }
         </div >
