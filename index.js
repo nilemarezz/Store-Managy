@@ -1,8 +1,8 @@
 const express = require('express');
 const app = express()
 require('dotenv').config({ path: __dirname + '/.env' })
-const { getListByTitle, addList, editList, createList, addRaw, getSummaryAccount, getSummaryMonth } = require('./services/adminsheet')
-const { userCreateList, userAddList, userEditList } = require('./services/usersheet')
+const { getListByTitle, addList, editList, createList, addRaw, getSummaryAccount, getSummaryMonth, deleteList } = require('./services/adminsheet')
+const { userCreateList, userAddList, userEditList, deleteListUser } = require('./services/usersheet')
 var bodyParser = require('body-parser')
 var morgan = require('morgan')
 var cors = require('cors');
@@ -51,6 +51,17 @@ app.post("/create", async (req, res) => {
     await createList()
     await userCreateList()
   } catch (err) {
+    console.log(err)
+  }
+})
+
+app.delete("/delete", async (req, res) => {
+  try {
+    await deleteList(req.query.id, req.query.admin, req.query.user, req.query.sheet)
+    await deleteListUser(req.query.id, req.query.admin, req.query.user, req.query.sheet)
+    res.json({ result: true })
+  } catch (err) {
+    res.json({ result: false })
     console.log(err)
   }
 })

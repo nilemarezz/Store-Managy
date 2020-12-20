@@ -10,7 +10,7 @@ const PayStatus = ({ status }) => {
   return <Box size="small" style={{ backgroundColor: payStatus[status] ? payStatus[status].color : 'grey', color: 'white', borderRadius: 6 }} pad={{ horizontal: "small", vertical: 'xxsmall' }}>{status || "-"}</Box>
 }
 const LogisStatus = ({ status }) => {
-  return <Box size="small" style={{ backgroundColor: logisStatus[status].color, color: 'white', borderRadius: 6 }} pad={{ horizontal: "small", vertical: 'xxsmall' }}>{status || "-"}</Box>
+  return <Box size="small" style={{ backgroundColor: logisStatus[status] ? logisStatus[status].color : 'grey', color: 'white', borderRadius: 6 }} pad={{ horizontal: "small", vertical: 'xxsmall' }}>{status || "-"}</Box>
 }
 export {
   TrackingStatus,
