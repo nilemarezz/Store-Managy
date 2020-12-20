@@ -53,7 +53,6 @@ const addList = async (body, name, admin) => {
 }
 
 const editList = async (data, name, admin) => {
-
   try {
     const doc = new GoogleSpreadsheet(admin);
     await doc.useServiceAccountAuth({
@@ -71,6 +70,23 @@ const editList = async (data, name, admin) => {
     await rows[data["id"]].save();
     return true
 
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+const deleteList = async (id, admin, user, name) => {
+  try {
+    const doc = new GoogleSpreadsheet(admin);
+    await doc.useServiceAccountAuth({
+      client_email: creds.client_id,
+      private_key: creds.private_key.replace(new RegExp("\\\\n", "\g"), "\n"),
+    });
+    await doc.loadInfo();
+    const sheet = doc.sheetsByTitle[name];
+    const rows = await sheet.getRows();
+    await rows[id].delete()
+    return true
   } catch (err) {
     console.log(err)
   }
@@ -145,4 +161,4 @@ const getSummaryMonth = async (admin) => {
   return data
 }
 
-module.exports = { getListByTitle, addList, editList, createList, addRaw, getSummaryAccount, getSummaryMonth }
+module.exports = { getListByTitle, addList, editList, createList, addRaw, getSummaryAccount, getSummaryMonth, deleteList }

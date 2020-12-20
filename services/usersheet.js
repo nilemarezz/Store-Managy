@@ -47,6 +47,23 @@ const userEditList = async (data, name, user) => {
   // const rows = await sheet.getRows();
 }
 
+const deleteListUser = async (id, admin, user, name) => {
+  try {
+    const doc = new GoogleSpreadsheet(user);
+    await doc.useServiceAccountAuth({
+      client_email: creds.client_id,
+      private_key: creds.private_key.replace(new RegExp("\\\\n", "\g"), "\n"),
+    });
+    await doc.loadInfo();
+    const sheet = doc.sheetsByTitle[name];
+    const rows = await sheet.getRows();
+    await rows[id].delete()
+    return true
+  } catch (err) {
+    console.log(err)
+  }
+}
+
 const userCreateList = async () => {
   const doc = new GoogleSpreadsheet('1A8mN8TNV41pfzwvcYOKW8QdeqxwCBJT_zsgkczqEMqw');
   await doc.useServiceAccountAuth({
@@ -61,4 +78,4 @@ const userCreateList = async () => {
   });
 }
 
-module.exports = { userAddList, userEditList, userCreateList }
+module.exports = { userAddList, userEditList, userCreateList, deleteListUser }
