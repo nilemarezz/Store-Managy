@@ -8,7 +8,9 @@ const editDetail = async (value) => {
     "sheet": value[variable.sheet.value],
     "สถานะการจ่ายเงิน": value[variable.paymentStatus.value],
     "สถานะสินค้า": value[variable.productStatus.value],
-    "ต้นทุน": value[variable.cost.value]
+    "ต้นทุน": value[variable.cost.value],
+    "ราคาขาย": value[variable.salePrice.value],
+    "ยอดที่โอน": value[variable.price.value],
   }
   const res = await fetch(`https://nodemanagy.herokuapp.com/edit?admin=${process.env.REACT_APP_ADMIN_SHEET_JP}&user=${process.env.REACT_APP_USER_SHEET_JP}`, {
     method: 'PUT',

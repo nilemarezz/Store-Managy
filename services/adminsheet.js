@@ -62,11 +62,14 @@ const editList = async (data, name, admin) => {
     await doc.loadInfo();
     const sheet = doc.sheetsByTitle[name];
     const rows = await sheet.getRows();
+    console.log(data)
     rows[data.id]['Tracking no.'] = data["Tracking no."]
     rows[data.id]['สถานะการจ่ายเงิน'] = data["สถานะการจ่ายเงิน"]
     rows[data.id]['สถานะสินค้า'] = data["สถานะสินค้า"]
     rows[data.id]['ที่อยู่'] = data["ที่อยู่"]
     rows[data.id]['ต้นทุน'] = data["ต้นทุน"]
+    rows[data.id]['ราคาขาย'] = data["ราคาขาย"]
+    rows[data.id]['ยอดที่โอน'] = data["ยอดที่โอน"]
     await rows[data["id"]].save();
     return true
 

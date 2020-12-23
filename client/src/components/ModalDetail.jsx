@@ -34,6 +34,9 @@ const Modal = ({ showModal, onCloseModal, selectList, onDeleteList }) => {
   const [deleteId, setDeleteId] = useState(null)
   const [deleteError, setDeleteError] = useState(null)
   const [loadingDelete, setLoadingDelete] = useState(false)
+  const [salePrice, setSaleprice] = useState(null)
+  const [price, setPrice] = useState(null)
+  console.log(selectList)
   const closeModal = () => {
     setPaymethod(null)
     settrackmethod(null)
@@ -61,6 +64,8 @@ const Modal = ({ showModal, onCloseModal, selectList, onDeleteList }) => {
     data[variable.trackingNo.value] = trackingNo === null ? selectList[variable.trackingNo.value] : trackingNo
     data[variable.address.value] = address === null ? selectList[variable.address.value] : address
     data[variable.cost.value] = cost === null ? selectList[variable.cost.value] : cost
+    data[variable.salePrice.value] = salePrice === null ? selectList[variable.salePrice.value] : salePrice
+    data[variable.price.value] = price === null ? selectList[variable.price.value] : price
     const res = await editDetailService(data)
     if (res) {
       setLoading(false)
@@ -127,6 +132,8 @@ const Modal = ({ showModal, onCloseModal, selectList, onDeleteList }) => {
                       trackingNo={trackingNo === null ? selectList[variable.trackingNo.value] : trackingNo}
                       address={address === null ? selectList[variable.address.value] : address}
                       cost={cost === null ? selectList[variable.cost.value] : cost}
+                      salePrice={salePrice === null ? selectList[variable.salePrice.value] : salePrice}
+                      price={price === null ? selectList[variable.price.value] : price}
                       setPaymethod={(value) => setPaymethod(value)}
                       settrackmethod={(value => settrackmethod(value))}
                       setAddress={value => setAddress(value)}
@@ -136,6 +143,8 @@ const Modal = ({ showModal, onCloseModal, selectList, onDeleteList }) => {
                       submitEditDetail={submitEditDetail}
                       errorMsg={errorMsg}
                       selectDeleteList={selectDeleteList}
+                      setSaleprice={setSaleprice}
+                      setPrice={setPrice}
 
                     /> : <ItemDetail selectList={selectList} />}
                 {onEdit ?

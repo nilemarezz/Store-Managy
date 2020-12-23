@@ -30,8 +30,8 @@ const ButtonDelete = styled.div`
   border-radius: 5px;
 `
 
-const EditDetail = ({ id, address, cost, setCost, paymethod, trackingNo, trackmethod, setPaymethod, settrackmethod, setAddress, settrackingNo, selectDeleteList }) => {
-
+const EditDetail = ({ id, address, salePrice, price, setPrice, cost, setCost, paymethod, trackingNo, trackmethod, setPaymethod, setSaleprice, settrackmethod, setAddress, settrackingNo, selectDeleteList }) => {
+  console.log(price)
   return (
     <div style={{ height: 350, overflow: 'scroll' }}>
       <Box pad={{ horizontal: 'medium' }} animation={['fadeIn']}>
@@ -92,6 +92,30 @@ const EditDetail = ({ id, address, cost, setCost, paymethod, trackingNo, trackme
             placeholder={variable.cost.placeholder}
             value={cost}
             onChange={event => setCost(event.target.value)}
+            style={{ color: color.subfont, padding: '5px 5px', border: '1px solid white' }}
+            size="small"
+          />
+        </Box>
+        <Box direction="row" gap="small" pad={{ vertical: 'small' }}>
+          <Box style={{ width: '140px' }}>
+            <Text size="small" color={color.subfont}>{`${variable.salePrice.label}  : `} </Text>
+          </Box>
+          <StyledField
+            placeholder={variable.salePrice.placeholder}
+            value={salePrice}
+            onChange={event => setSaleprice(event.target.value)}
+            style={{ color: color.subfont, padding: '5px 5px', border: '1px solid white' }}
+            size="small"
+          />
+        </Box>
+        <Box direction="row" gap="small" pad={{ vertical: 'small' }}>
+          <Box style={{ width: '140px' }}>
+            <Text size="small" color={color.subfont}>{`${variable.price.label}  : `} </Text>
+          </Box>
+          <StyledField
+            placeholder={variable.price.placeholder}
+            value={price}
+            onChange={event => setPrice(event.target.value)}
             style={{ color: color.subfont, padding: '5px 5px', border: '1px solid white' }}
             size="small"
           />
