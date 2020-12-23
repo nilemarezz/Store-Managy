@@ -70,6 +70,8 @@ const editList = async (data, name, admin) => {
     rows[data.id]['ต้นทุน'] = data["ต้นทุน"]
     rows[data.id]['ราคาขาย'] = data["ราคาขาย"]
     rows[data.id]['ยอดที่โอน'] = data["ยอดที่โอน"]
+    rows[data.id]['กำไร'] = data[""]
+    rows[data.id]['กำไรสุทธิ'] = data[""]
     await rows[data["id"]].save();
     return true
 
