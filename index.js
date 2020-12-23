@@ -1,8 +1,8 @@
 const express = require('express');
 const app = express()
 require('dotenv').config({ path: __dirname + '/.env' })
-const { getListByTitle, addList, editList, createList, addRaw, getSummaryAccount, getSummaryMonth, deleteList } = require('./services/adminsheet')
-const { userCreateList, userAddList, userEditList, deleteListUser } = require('./services/usersheet')
+const { getListByTitle, addList, editList, createList, addRaw, getSummaryAccount, getSummaryMonth, deleteList, addFromUser } = require('./services/adminsheet')
+const { userCreateList, userAddList, userEditList, deleteListUser, userAddForm } = require('./services/usersheet')
 var bodyParser = require('body-parser')
 var morgan = require('morgan')
 var cors = require('cors');
@@ -56,6 +56,7 @@ app.post("/create", async (req, res) => {
 })
 
 app.delete("/delete", async (req, res) => {
+  console.log('delete')
   try {
     await deleteList(req.query.id, req.query.admin, req.query.user, req.query.sheet)
     await deleteListUser(req.query.id, req.query.admin, req.query.user, req.query.sheet)
@@ -63,6 +64,39 @@ app.delete("/delete", async (req, res) => {
   } catch (err) {
     res.json({ result: false })
     console.log(err)
+  }
+})
+
+app.post("/addFormUser", async (req, res) => {
+  console.log(req.body)
+  try {
+    const data = []
+    for (let i = 0; i < req.body.product.length; i++) {
+      data.push({
+        "@Twitter": req.body.twitter,
+        "รายการ": req.body.product[i].productName,
+        "จำนวน": req.body.product[i].productAmount,
+        "การจัดส่ง": req.body.logist === "type1" ? "ลทบ." : "EMS",
+        "สถานะการจ่ายเงิน": req.body.payStatus,
+        "ยอดที่โอน": req.body.product[i].productPrice,
+        "Note": req.body.note === '' ? '-' : req.body.note,
+        "ที่อยู่": req.body.address,
+        "ราคาขาย": req.body.product[i].productPrice,
+        "ค่าส่งที่เก็บ": i === 0 ? req.body.logistPrice : 0,
+        "สถานะสินค้า": 'รอกด',
+        "Tracking no.": '-',
+        "ต้นทุน": 0
+      }
+      )
+    }
+    const date = new Date()
+    const date_format = `${date.getMonth() + 1}_${date.getFullYear().toString()}`
+    await addFromUser(data, date_format, req.query.admin)
+    await userAddForm(data, date_format, req.query.user)
+    res.json({ result: true })
+  } catch (err) {
+    console.log(err)
+    res.json({ result: false })
   }
 })
 

@@ -23,6 +23,17 @@ const userAddList = async (body, name, user) => {
   return true
 }
 
+const userAddForm = async (body, name, user) => {
+  const doc = new GoogleSpreadsheet(user);
+  await doc.useServiceAccountAuth({
+    client_email: creds.client_id,
+    private_key: creds.private_key.replace(new RegExp("\\\\n", "\g"), "\n"),
+  });
+  await doc.loadInfo();
+  const sheet = doc.sheetsByTitle[name];
+  await sheet.addRows(body);
+  return true
+}
 const userEditList = async (data, name, user) => {
   try {
     const doc = new GoogleSpreadsheet(user);
@@ -78,4 +89,4 @@ const userCreateList = async () => {
   });
 }
 
-module.exports = { userAddList, userEditList, userCreateList, deleteListUser }
+module.exports = { userAddList, userEditList, userCreateList, deleteListUser, userAddForm }
