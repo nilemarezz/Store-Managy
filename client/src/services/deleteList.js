@@ -1,6 +1,6 @@
 const deleteList = async (value, sheet) => {
   console.log(value, sheet)
-  const res = await fetch(`http://localhost:5000/delete?admin=${process.env.REACT_APP_ADMIN_SHEET_JP}&user=${process.env.REACT_APP_USER_SHEET_JP}&id=${value}&sheet=${sheet}`, {
+  const res = await fetch(`https://nodemanagy.herokuapp.com/delete?admin=${process.env.REACT_APP_ADMIN_SHEET_JP}&user=${process.env.REACT_APP_USER_SHEET_JP}&id=${value}&sheet=${sheet}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json'
