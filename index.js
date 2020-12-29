@@ -68,10 +68,10 @@ app.delete("/delete", async (req, res) => {
 })
 
 app.post("/addFormUser", async (req, res) => {
-  console.log(req.body)
   try {
     const data = []
     for (let i = 0; i < req.body.product.length; i++) {
+      const adding = req.body.payStatus === "มัดจำ" ? 2 : 1
       data.push({
         "@Twitter": req.body.twitter,
         "รายการ": req.body.product[i].productName,
@@ -81,7 +81,7 @@ app.post("/addFormUser", async (req, res) => {
         "ยอดที่โอน": parseInt(req.body.product[i].productPrice) * parseInt(req.body.product[i].productAmount) + (i === 0 ? parseInt(req.body.logistPrice) : 0),
         "Note": req.body.note === '' ? '-' : req.body.note,
         "ที่อยู่": req.body.address,
-        "ราคาขาย": parseInt(req.body.product[i].productPrice) * parseInt(req.body.product[i].productAmount),
+        "ราคาขาย": (parseInt(req.body.product[i].productPrice)) * adding * parseInt(req.body.product[i].productAmount),
         "ค่าส่งที่เก็บ": i === 0 ? req.body.logistPrice : 0,
         "สถานะสินค้า": 'รอกด',
         "Tracking no.": '-',
@@ -89,11 +89,12 @@ app.post("/addFormUser", async (req, res) => {
       }
       )
     }
+    console.log(data)
     const date = new Date()
     const date_format = `${date.getMonth() + 1}_${date.getFullYear().toString()}`
     await addFromUser(data, date_format, req.query.admin)
     await userAddForm(data, date_format, req.query.user)
-    res.json({ result: true })
+    res.json({ result: false })
   } catch (err) {
     console.log(err)
     res.json({ result: false })
