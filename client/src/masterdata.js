@@ -6,9 +6,6 @@ export const serchInput = {
 }
 
 export const selectData = [
-  { value: '10_2020', label: 'OCT 2020' },
-  { value: '11_2020', label: 'NOV 2020' },
-  { value: '12_2020', label: 'DEC 2020' },
   { value: '01_2021', label: 'JAN 2021' },
   { value: '02_2021', label: 'FEB 2021' },
   { value: '03_2021', label: 'MAR 2021' },
