@@ -6,9 +6,6 @@ export const serchInput = {
 }
 
 export const selectData = [
-  { value: '10_2020', label: 'OCT 2020' },
-  { value: '11_2020', label: 'NOV 2020' },
-  { value: '12_2020', label: 'DEC 2020' },
   { value: '01_2021', label: 'JAN 2021' },
   { value: '02_2021', label: 'FEB 2021' },
   { value: '03_2021', label: 'MAR 2021' },
@@ -18,15 +15,15 @@ export const selectData = [
   { value: '07_2021', label: 'JUL 2021' },]
 
 export const color = {
-  cardBody: "#d6bae6",
+  cardBody: "#0E416E",
   cardFooter: "#dsc1f0",
   activate: "white",
   fontColor: 'white',
   subfont: "white",
   fontActivate: "black",
   placeholder: "#e4e4e4",
-  background: "#bda4cb",
-  activateBackground: "#a690b3"
+  background: "#0F4C82",
+  activateBackground: "#2352B8"
 }
 
 export const payStatus = {

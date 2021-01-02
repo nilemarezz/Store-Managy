@@ -1,5 +1,5 @@
 body {
-  background: #bda4cb ;
+  background: #0F4C82 ;
   overflow: hidden;
 }
 
@@ -101,7 +101,7 @@ li {
 
 .modal{
   width : 85%;
-  background: #a691b3;
+  background: #0F4C82;
   border-radius: 10px;
   height : calc(100vh - 130px);
   z-index: 5;

@@ -1,9 +1,9 @@
 {
-  "short_name": "Catchy-JP",
-  "name": "Catchy-JP",
+  "short_name": "Catchy-KR",
+  "name": "Catchy-KR",
   "icons": [
     {
-      "src": "/images/logo-jp.jpg",
+      "src": "/images/logo.jpg",
       "type": "image/jpg",
       "sizes": "1024x1024"
     }

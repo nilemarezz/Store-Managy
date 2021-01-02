@@ -12,7 +12,7 @@ const editDetail = async (value) => {
     "ราคาขาย": value[variable.salePrice.value],
     "ยอดที่โอน": value[variable.price.value],
   }
-  const res = await fetch(`https://nodemanagy.herokuapp.com/edit?admin=${process.env.REACT_APP_ADMIN_SHEET_JP}&user=${process.env.REACT_APP_USER_SHEET_JP}`, {
+  const res = await fetch(`https://nodemanagy.herokuapp.com/edit?admin=${process.env.REACT_APP_ADMIN_SHEET_KR}&user=${process.env.REACT_APP_USER_SHEET_KR}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json'
